@@ -1,0 +1,3682 @@
+==================================================
+AUDITORIA DE CÓDIGO — BioOdonto
+Gerado em: 27/03/2026 23:19:44
+Pasta raiz: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida
+==================================================
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\analysis_options.yaml
+==================================================
+   1: # This file configures the analyzer, which statically analyzes Dart code to
+   2: # check for errors, warnings, and lints.
+   3: #
+   4: # The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+   5: # IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+   6: # invoked from the command line by running `flutter analyze`.
+   7: # The following line activates a set of recommended lints for Flutter apps,
+   8: # packages, and plugins designed to encourage good coding practices.
+   9: include: package:flutter_lints/flutter.yaml
+  10: linter:
+  11:   # The lint rules applied to this project can be customized in the
+  12:   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  13:   # included above or to enable additional rules. A list of all available lints
+  14:   # and their documentation is published at https://dart.dev/lints.
+  15:   #
+  16:   # Instead of disabling a lint rule for the entire project in the
+  17:   # section below, it can also be suppressed for a single line of code
+  18:   # or a specific dart file by using the `// ignore: name_of_lint` and
+  19:   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  20:   # producing the lint.
+  21:   rules:
+  22:     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+  23:     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+  24: # Additional information about this file can be found at
+  25: # https://dart.dev/guides/language/analysis-options
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\package.json
+==================================================
+   1: {
+   2:   "name": "prestservbuscavida",
+   3:   "version": "1.0.0",
+   4:   "description": "A new Flutter project.",
+   5:   "main": "index.js",
+   6:   "directories": {
+   7:     "lib": "lib",
+   8:     "test": "test"
+   9:   },
+  10:   "scripts": {
+  11:     "test": "echo \"Error: no test specified\" && exit 1"
+  12:   },
+  13:   "keywords": [],
+  14:   "author": "",
+  15:   "license": "ISC",
+  16:   "type": "commonjs",
+  17:   "dependencies": {
+  18:     "firebase-admin": "^13.7.0",
+  19:     "xlsx": "^0.18.5"
+  20:   },
+  21:   "devDependencies": {}
+  22: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\pubspec.yaml
+==================================================
+   1: name: prestservbuscavida
+   2: description: "A new Flutter project."
+   3: # The following line prevents the package from being accidentally published to
+   4: # pub.dev using `flutter pub publish`. This is preferred for private packages.
+   5: publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+   6: # The following defines the version and build number for your application.
+   7: # A version number is three numbers separated by dots, like 1.2.43
+   8: # followed by an optional build number separated by a +.
+   9: # Both the version and the builder number may be overridden in flutter
+  10: # build by specifying --build-name and --build-number, respectively.
+  11: # In Android, build-name is used as versionName while build-number used as versionCode.
+  12: # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+  13: # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+  14: # Read more about iOS versioning at
+  15: # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+  16: # In Windows, build-name is used as the major, minor, and patch parts
+  17: # of the product and file versions while build-number is used as the build suffix.
+  18: version: 1.0.0+2
+  19: environment:
+  20:   sdk: ^3.11.1
+  21: # Dependencies specify other packages that your package needs in order to work.
+  22: # To automatically upgrade your package dependencies to the latest versions
+  23: # consider running `flutter pub upgrade --major-versions`. Alternatively,
+  24: # dependencies can be manually updated by changing the version numbers below to
+  25: # the latest version available on pub.dev. To see which dependencies have newer
+  26: # versions available, run `flutter pub outdated`.
+  27: dependencies:
+  28:   flutter:
+  29:     sdk: flutter
+  30:   firebase_core: ^4.4.0
+  31:   cloud_firestore: ^6.1.2
+  32:   firebase_auth: ^6.0.3
+  33:   firebase_storage: ^13.0.3
+  34:   shared_preferences: ^2.5.3
+  35:   connectivity_plus: ^7.0.0
+  36:   url_launcher: ^6.3.2
+  37:   mask_text_input_formatter: ^2.9.0
+  38:   # The following adds the Cupertino Icons font to your application.
+  39:   # Use with the CupertinoIcons class for iOS style icons.
+  40:   cupertino_icons: ^1.0.8
+  41: dev_dependencies:
+  42:   flutter_launcher_icons: ^0.14.3
+  43:   flutter_test:
+  44:     sdk: flutter
+  45:   # The "flutter_lints" package below contains a set of recommended lints to
+  46:   # encourage good coding practices. The lint set provided by the package is
+  47:   # activated in the `analysis_options.yaml` file located at the root of your
+  48:   # package. See that file for information about deactivating specific lint
+  49:   # rules and activating additional ones.
+  50:   flutter_lints: ^6.0.0
+  51: # For information on the generic Dart part of this file, see the
+  52: # following page: https://dart.dev/tools/pub/pubspec
+  53: # The following section is specific to Flutter packages.
+  54: flutter:
+  55:   # The following line ensures that the Material Icons font is
+  56:   # included with your application, so that you can use the icons in
+  57:   # the material Icons class.
+  58:   uses-material-design: true
+  59:   # To add assets to your application, add an assets section, like this:
+  60:   assets:
+  61:     - assets/
+  62:   # https://flutter.dev/to/resolution-aware-images
+  63:   # For details regarding adding assets from package dependencies, see
+  64:   # https://flutter.dev/to/asset-from-package
+  65:   # To add custom fonts to your application, add a fonts section here,
+  66:   # in this "flutter" section. Each entry in this list should have a
+  67:   # "family" key with the font family name, and a "fonts" key with a
+  68:   # list giving the asset and other descriptors for the font. For
+  69:   # example:
+  70:   # fonts:
+  71:   #   - family: Schyler
+  72:   #     fonts:
+  73:   #       - asset: fonts/Schyler-Regular.ttf
+  74:   #       - asset: fonts/Schyler-Italic.ttf
+  75:   #         style: italic
+  76:   #   - family: Trajan Pro
+  77:   #     fonts:
+  78:   #       - asset: fonts/TrajanPro.ttf
+  79:   #       - asset: fonts/TrajanPro_Bold.ttf
+  80:   #         weight: 700
+  81:   #
+  82:   # For details regarding fonts from package dependencies,
+  83:   # see https://flutter.dev/to/font-from-package
+  84: flutter_launcher_icons:
+  85:   android: true
+  86:   ios: true
+  87:   image_path: "assets/app_icon.png"
+  88:   adaptive_icon_background: "#ffffff"
+  89:   adaptive_icon_foreground: "assets/app_icon.png"
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\build.gradle.kts
+==================================================
+   1: allprojects {
+   2:     repositories {
+   3:         google()
+   4:         mavenCentral()
+   5:     }
+   6: }
+   7: 
+   8: val newBuildDir: Directory =
+   9:     rootProject.layout.buildDirectory
+  10:         .dir("../../build")
+  11:         .get()
+  12: rootProject.layout.buildDirectory.value(newBuildDir)
+  13: 
+  14: subprojects {
+  15:     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
+  16:     project.layout.buildDirectory.value(newSubprojectBuildDir)
+  17: }
+  18: subprojects {
+  19:     project.evaluationDependsOn(":app")
+  20: }
+  21: 
+  22: tasks.register<Delete>("clean") {
+  23:     delete(rootProject.layout.buildDirectory)
+  24: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\settings.gradle.kts
+==================================================
+   1: pluginManagement {
+   2:     val flutterSdkPath =
+   3:         run {
+   4:             val properties = java.util.Properties()
+   5:             file("local.properties").inputStream().use { properties.load(it) }
+   6:             val flutterSdkPath = properties.getProperty("flutter.sdk")
+   7:             require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
+   8:             flutterSdkPath
+   9:         }
+  10: 
+  11:     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+  12: 
+  13:     repositories {
+  14:         google()
+  15:         mavenCentral()
+  16:         gradlePluginPortal()
+  17:     }
+  18: }
+  19: 
+  20: plugins {
+  21:     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+  22:     id("com.android.application") version "8.11.1" apply false
+  23:     // START: FlutterFire Configuration
+  24:     id("com.google.gms.google-services") version("4.3.15") apply false
+  25:     // END: FlutterFire Configuration
+  26:     id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+  27: }
+  28: 
+  29: include(":app")
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\build.gradle.kts
+==================================================
+   1: import java.util.Properties
+   2: import java.io.FileInputStream
+   3: 
+   4: val keyPropertiesFile = rootProject.file("key.properties")
+   5: val keyProperties = Properties()
+   6: keyProperties.load(FileInputStream(keyPropertiesFile))
+   7: 
+   8: plugins {
+   9:     id("com.android.application")
+  10:     // START: FlutterFire Configuration
+  11:     id("com.google.gms.google-services")
+  12:     // END: FlutterFire Configuration
+  13:     id("kotlin-android")
+  14:     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+  15:     id("dev.flutter.flutter-gradle-plugin")
+  16: }
+  17: 
+  18: android {
+  19:     namespace = "com.prestservbuscavida"
+  20:     compileSdk = flutter.compileSdkVersion
+  21:     ndkVersion = flutter.ndkVersion
+  22: 
+  23:     compileOptions {
+  24:         sourceCompatibility = JavaVersion.VERSION_17
+  25:         targetCompatibility = JavaVersion.VERSION_17
+  26:     }
+  27: 
+  28:     kotlinOptions {
+  29:         jvmTarget = JavaVersion.VERSION_17.toString()
+  30:     }
+  31: 
+  32:     signingConfigs {
+  33:         create("release") {
+  34:             keyAlias = keyProperties["keyAlias"] as String
+  35:             keyPassword = keyProperties["keyPassword"] as String
+  36:             storeFile = file(keyProperties["storeFile"] as String)
+  37:             storePassword = keyProperties["storePassword"] as String
+  38:         }
+  39:     }
+  40: 
+  41:     defaultConfig {
+  42:         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+  43:         applicationId = "com.prestservbuscavida"
+  44:         // You can update the following values to match your application needs.
+  45:         // For more information, see: https://flutter.dev/to/review-gradle-config.
+  46:         minSdk = flutter.minSdkVersion
+  47:         targetSdk = flutter.targetSdkVersion
+  48:         versionCode = flutter.versionCode
+  49:         versionName = flutter.versionName
+  50:     }
+  51: 
+  52:     buildTypes {
+  53:         release {
+  54:             // TODO: Add your own signing config for the release build.
+  55:             // Signing with the debug keys for now, so `flutter run --release` works.
+  56:             signingConfig = signingConfigs.getByName("release")
+  57:             isMinifyEnabled = true
+  58:             isShrinkResources = true
+  59:             proguardFiles(
+  60:                 getDefaultProguardFile("proguard-android-optimize.txt"),
+  61:                 "proguard-rules.pro"
+  62:             )
+  63:         }
+  64:     }
+  65: }
+  66: 
+  67: flutter {
+  68:     source = "../.."
+  69: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\debug\AndroidManifest.xml
+==================================================
+   1: <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+   2:     <!-- The INTERNET permission is required for development. Specifically,
+   3:          the Flutter tool needs it to communicate with the running application
+   4:          to allow setting breakpoints, to provide hot reload, etc.
+   5:     -->
+   6:     <uses-permission android:name="android.permission.INTERNET"/>
+   7: </manifest>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\AndroidManifest.xml
+==================================================
+   1: <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+   2:     <uses-permission android:name="android.permission.INTERNET"/>
+   3:     <uses-permission android:name="android.permission.CALL_PHONE"/>
+   4:     <application
+   5:         android:label="Catálogo Busca Vida"
+   6:         android:name="${applicationName}"
+   7:         android:icon="@mipmap/ic_launcher">
+   8:         <activity
+   9:             android:name=".MainActivity"
+  10:             android:exported="true"
+  11:             android:launchMode="singleTop"
+  12:             android:taskAffinity=""
+  13:             android:theme="@style/LaunchTheme"
+  14:             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+  15:             android:hardwareAccelerated="true"
+  16:             android:windowSoftInputMode="adjustResize">
+  17:             <!-- Specifies an Android theme to apply to this Activity as soon as
+  18:                  the Android process has started. This theme is visible to the user
+  19:                  while the Flutter UI initializes. After that, this theme continues
+  20:                  to determine the Window background behind the Flutter UI. -->
+  21:             <meta-data
+  22:               android:name="io.flutter.embedding.android.NormalTheme"
+  23:               android:resource="@style/NormalTheme"
+  24:               />
+  25:             <intent-filter>
+  26:                 <action android:name="android.intent.action.MAIN"/>
+  27:                 <category android:name="android.intent.category.LAUNCHER"/>
+  28:             </intent-filter>
+  29:         </activity>
+  30:         <!-- Don't delete the meta-data below.
+  31:              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+  32:         <meta-data
+  33:             android:name="flutterEmbedding"
+  34:             android:value="2" />
+  35:     </application>
+  36:     <!-- Required to query activities that can process text, see:
+  37:          https://developer.android.com/training/package-visibility and
+  38:          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+  39: 
+  40:          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+  41:     <queries>
+  42:         <intent>
+  43:             <action android:name="android.intent.action.PROCESS_TEXT"/>
+  44:             <data android:mimeType="text/plain"/>
+  45:         </intent>
+  46:     </queries>
+  47: </manifest>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\kotlin\com\buscavida\prestservbuscavida\MainActivity.kt
+==================================================
+   1: package com.prestservbuscavida
+   2: 
+   3: import io.flutter.embedding.android.FlutterActivity
+   4: 
+   5: class MainActivity : FlutterActivity()
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\drawable\launch_background.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <!-- Modify this file to customize your launch splash screen -->
+   3: <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+   4:     <item android:drawable="@android:color/white" />
+   5: 
+   6:     <!-- You can insert your own image assets here -->
+   7:     <!-- <item>
+   8:         <bitmap
+   9:             android:gravity="center"
+  10:             android:src="@mipmap/launch_image" />
+  11:     </item> -->
+  12: </layer-list>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\drawable-v21\launch_background.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <!-- Modify this file to customize your launch splash screen -->
+   3: <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+   4:     <item android:drawable="?android:colorBackground" />
+   5: 
+   6:     <!-- You can insert your own image assets here -->
+   7:     <!-- <item>
+   8:         <bitmap
+   9:             android:gravity="center"
+  10:             android:src="@mipmap/launch_image" />
+  11:     </item> -->
+  12: </layer-list>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+   3:   <background android:drawable="@color/ic_launcher_background"/>
+   4:   <foreground>
+   5:       <inset
+   6:           android:drawable="@drawable/ic_launcher_foreground"
+   7:           android:inset="16%" />
+   8:   </foreground>
+   9: </adaptive-icon>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\values\colors.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <resources>
+   3:     <color name="ic_launcher_background">#ffffff</color>
+   4: </resources>
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\values\styles.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <resources>
+   3:     <!-- Theme applied to the Android Window while the process is starting when the OS's Dark Mode setting is off -->
+   4:     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+   5:         <!-- Show a splash screen on the activity. Automatically removed when
+   6:              the Flutter engine draws its first frame -->
+   7:         <item name="android:windowBackground">@drawable/launch_background</item>
+   8:     </style>
+   9:     <!-- Theme applied to the Android Window as soon as the process has started.
+  10:          This theme determines the color of the Android Window while your
+  11:          Flutter UI initializes, as well as behind your Flutter UI while its
+  12:          running.
+  13: 
+  14:          This Theme is only used starting with V2 of Flutter's Android embedding. -->
+  15:     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+  16:         <item name="android:windowBackground">?android:colorBackground</item>
+  17:     </style>
+  18: </resources>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\main\res\values-night\styles.xml
+==================================================
+   1: <?xml version="1.0" encoding="utf-8"?>
+   2: <resources>
+   3:     <!-- Theme applied to the Android Window while the process is starting when the OS's Dark Mode setting is on -->
+   4:     <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+   5:         <!-- Show a splash screen on the activity. Automatically removed when
+   6:              the Flutter engine draws its first frame -->
+   7:         <item name="android:windowBackground">@drawable/launch_background</item>
+   8:     </style>
+   9:     <!-- Theme applied to the Android Window as soon as the process has started.
+  10:          This theme determines the color of the Android Window while your
+  11:          Flutter UI initializes, as well as behind your Flutter UI while its
+  12:          running.
+  13: 
+  14:          This Theme is only used starting with V2 of Flutter's Android embedding. -->
+  15:     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+  16:         <item name="android:windowBackground">?android:colorBackground</item>
+  17:     </style>
+  18: </resources>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\android\app\src\profile\AndroidManifest.xml
+==================================================
+   1: <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+   2:     <!-- The INTERNET permission is required for development. Specifically,
+   3:          the Flutter tool needs it to communicate with the running application
+   4:          to allow setting breakpoints, to provide hot reload, etc.
+   5:     -->
+   6:     <uses-permission android:name="android.permission.INTERNET"/>
+   7: </manifest>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Flutter\AppFrameworkInfo.plist
+==================================================
+   1: <?xml version="1.0" encoding="UTF-8"?>
+   2: <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   3: <plist version="1.0">
+   4: <dict>
+   5:   <key>CFBundleDevelopmentRegion</key>
+   6:   <string>en</string>
+   7:   <key>CFBundleExecutable</key>
+   8:   <string>App</string>
+   9:   <key>CFBundleIdentifier</key>
+  10:   <string>io.flutter.flutter.app</string>
+  11:   <key>CFBundleInfoDictionaryVersion</key>
+  12:   <string>6.0</string>
+  13:   <key>CFBundleName</key>
+  14:   <string>App</string>
+  15:   <key>CFBundlePackageType</key>
+  16:   <string>FMWK</string>
+  17:   <key>CFBundleShortVersionString</key>
+  18:   <string>1.0</string>
+  19:   <key>CFBundleSignature</key>
+  20:   <string>????</string>
+  21:   <key>CFBundleVersion</key>
+  22:   <string>1.0</string>
+  23: </dict>
+  24: </plist>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner\AppDelegate.swift
+==================================================
+   1: import Flutter
+   2: import UIKit
+   3: 
+   4: @main
+   5: @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
+   6:   override func application(
+   7:     _ application: UIApplication,
+   8:     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+   9:   ) -> Bool {
+  10:     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  11:   }
+  12: 
+  13:   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+  14:     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+  15:   }
+  16: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner\Info.plist
+==================================================
+   1: <?xml version="1.0" encoding="UTF-8"?>
+   2: <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   3: <plist version="1.0">
+   4: <dict>
+   5: 	<key>CADisableMinimumFrameDurationOnPhone</key>
+   6: 	<true/>
+   7: 	<key>CFBundleDevelopmentRegion</key>
+   8: 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+   9: 	<key>CFBundleDisplayName</key>
+  10: 	<string>Prestservbuscavida</string>
+  11: 	<key>CFBundleExecutable</key>
+  12: 	<string>$(EXECUTABLE_NAME)</string>
+  13: 	<key>CFBundleIdentifier</key>
+  14: 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  15: 	<key>CFBundleInfoDictionaryVersion</key>
+  16: 	<string>6.0</string>
+  17: 	<key>CFBundleName</key>
+  18: 	<string>prestservbuscavida</string>
+  19: 	<key>CFBundlePackageType</key>
+  20: 	<string>APPL</string>
+  21: 	<key>CFBundleShortVersionString</key>
+  22: 	<string>$(FLUTTER_BUILD_NAME)</string>
+  23: 	<key>CFBundleSignature</key>
+  24: 	<string>????</string>
+  25: 	<key>CFBundleVersion</key>
+  26: 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+  27: 	<key>LSRequiresIPhoneOS</key>
+  28: 	<true/>
+  29: 	<key>UIApplicationSceneManifest</key>
+  30: 	<dict>
+  31: 		<key>UIApplicationSupportsMultipleScenes</key>
+  32: 		<false/>
+  33: 		<key>UISceneConfigurations</key>
+  34: 		<dict>
+  35: 			<key>UIWindowSceneSessionRoleApplication</key>
+  36: 			<array>
+  37: 				<dict>
+  38: 					<key>UISceneClassName</key>
+  39: 					<string>UIWindowScene</string>
+  40: 					<key>UISceneConfigurationName</key>
+  41: 					<string>flutter</string>
+  42: 					<key>UISceneDelegateClassName</key>
+  43: 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+  44: 					<key>UISceneStoryboardFile</key>
+  45: 					<string>Main</string>
+  46: 				</dict>
+  47: 			</array>
+  48: 		</dict>
+  49: 	</dict>
+  50: 	<key>UIApplicationSupportsIndirectInputEvents</key>
+  51: 	<true/>
+  52: 	<key>UILaunchStoryboardName</key>
+  53: 	<string>LaunchScreen</string>
+  54: 	<key>UIMainStoryboardFile</key>
+  55: 	<string>Main</string>
+  56: 	<key>UISupportedInterfaceOrientations</key>
+  57: 	<array>
+  58: 		<string>UIInterfaceOrientationPortrait</string>
+  59: 		<string>UIInterfaceOrientationLandscapeLeft</string>
+  60: 		<string>UIInterfaceOrientationLandscapeRight</string>
+  61: 	</array>
+  62: 	<key>UISupportedInterfaceOrientations~ipad</key>
+  63: 	<array>
+  64: 		<string>UIInterfaceOrientationPortrait</string>
+  65: 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+  66: 		<string>UIInterfaceOrientationLandscapeLeft</string>
+  67: 		<string>UIInterfaceOrientationLandscapeRight</string>
+  68: 	</array>
+  69: </dict>
+  70: </plist>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner\SceneDelegate.swift
+==================================================
+   1: import Flutter
+   2: import UIKit
+   3: 
+   4: class SceneDelegate: FlutterSceneDelegate {
+   5: 
+   6: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json
+==================================================
+   1: {"images":[{"size":"20x20","idiom":"iphone","filename":"Icon-App-20x20@2x.png","scale":"2x"},{"size":"20x20","idiom":"iphone","filename":"Icon-App-20x20@3x.png","scale":"3x"},{"size":"29x29","idiom":"iphone","filename":"Icon-App-29x29@1x.png","scale":"1x"},{"size":"29x29","idiom":"iphone","filename":"Icon-App-29x29@2x.png","scale":"2x"},{"size":"29x29","idiom":"iphone","filename":"Icon-App-29x29@3x.png","scale":"3x"},{"size":"40x40","idiom":"iphone","filename":"Icon-App-40x40@2x.png","scale":"2x"},{"size":"40x40","idiom":"iphone","filename":"Icon-App-40x40@3x.png","scale":"3x"},{"size":"57x57","idiom":"iphone","filename":"Icon-App-57x57@1x.png","scale":"1x"},{"size":"57x57","idiom":"iphone","filename":"Icon-App-57x57@2x.png","scale":"2x"},{"size":"60x60","idiom":"iphone","filename":"Icon-App-60x60@2x.png","scale":"2x"},{"size":"60x60","idiom":"iphone","filename":"Icon-App-60x60@3x.png","scale":"3x"},{"size":"20x20","idiom":"ipad","filename":"Icon-App-20x20@1x.png","scale":"1x"},{"size":"20x20","idiom":"ipad","filename":"Icon-App-20x20@2x.png","scale":"2x"},{"size":"29x29","idiom":"ipad","filename":"Icon-App-29x29@1x.png","scale":"1x"},{"size":"29x29","idiom":"ipad","filename":"Icon-App-29x29@2x.png","scale":"2x"},{"size":"40x40","idiom":"ipad","filename":"Icon-App-40x40@1x.png","scale":"1x"},{"size":"40x40","idiom":"ipad","filename":"Icon-App-40x40@2x.png","scale":"2x"},{"size":"50x50","idiom":"ipad","filename":"Icon-App-50x50@1x.png","scale":"1x"},{"size":"50x50","idiom":"ipad","filename":"Icon-App-50x50@2x.png","scale":"2x"},{"size":"72x72","idiom":"ipad","filename":"Icon-App-72x72@1x.png","scale":"1x"},{"size":"72x72","idiom":"ipad","filename":"Icon-App-72x72@2x.png","scale":"2x"},{"size":"76x76","idiom":"ipad","filename":"Icon-App-76x76@1x.png","scale":"1x"},{"size":"76x76","idiom":"ipad","filename":"Icon-App-76x76@2x.png","scale":"2x"},{"size":"83.5x83.5","idiom":"ipad","filename":"Icon-App-83.5x83.5@2x.png","scale":"2x"},{"size":"1024x1024","idiom":"ios-marketing","filename":"Icon-App-1024x1024@1x.png","scale":"1x"}],"info":{"version":1,"author":"xcode"}}
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json
+==================================================
+   1: {
+   2:   "images" : [
+   3:     {
+   4:       "idiom" : "universal",
+   5:       "filename" : "LaunchImage.png",
+   6:       "scale" : "1x"
+   7:     },
+   8:     {
+   9:       "idiom" : "universal",
+  10:       "filename" : "LaunchImage@2x.png",
+  11:       "scale" : "2x"
+  12:     },
+  13:     {
+  14:       "idiom" : "universal",
+  15:       "filename" : "LaunchImage@3x.png",
+  16:       "scale" : "3x"
+  17:     }
+  18:   ],
+  19:   "info" : {
+  20:     "version" : 1,
+  21:     "author" : "xcode"
+  22:   }
+  23: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner.xcodeproj\project.xcworkspace\xcshareddata\IDEWorkspaceChecks.plist
+==================================================
+   1: <?xml version="1.0" encoding="UTF-8"?>
+   2: <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   3: <plist version="1.0">
+   4: <dict>
+   5: 	<key>IDEDidComputeMac32BitWarning</key>
+   6: 	<true/>
+   7: </dict>
+   8: </plist>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\Runner.xcworkspace\xcshareddata\IDEWorkspaceChecks.plist
+==================================================
+   1: <?xml version="1.0" encoding="UTF-8"?>
+   2: <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   3: <plist version="1.0">
+   4: <dict>
+   5: 	<key>IDEDidComputeMac32BitWarning</key>
+   6: 	<true/>
+   7: </dict>
+   8: </plist>
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\ios\RunnerTests\RunnerTests.swift
+==================================================
+   1: import Flutter
+   2: import UIKit
+   3: import XCTest
+   4: 
+   5: class RunnerTests: XCTestCase {
+   6: 
+   7:   func testExample() {
+   8:     // If you add code to the Runner application, consider adding tests here.
+   9:     // See https://developer.apple.com/documentation/xctest for more information about using XCTest.
+  10:   }
+  11: 
+  12: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\main.dart
+==================================================
+   1: import 'package:firebase_core/firebase_core.dart';
+   2: import 'package:flutter/material.dart';
+   3: import 'package:flutter/services.dart';
+   4: import 'app/app.dart';
+   5: import 'firebase_options.dart';
+   6: Future<void> main() async {
+   7:   WidgetsFlutterBinding.ensureInitialized();
+   8:   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+   9:   await Firebase.initializeApp(
+  10:     options: DefaultFirebaseOptions.currentPlatform,
+  11:   );
+  12:   runApp(const PrestServBuscaVidaApp());
+  13: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\app\app.dart
+==================================================
+   1: import 'package:firebase_auth/firebase_auth.dart';
+   2: import 'package:flutter/material.dart';
+   3: import '../core/theme/app_theme.dart';
+   4: import '../features/auth/auth_page.dart';
+   5: import '../features/home/home_page.dart';
+   6: class PrestServBuscaVidaApp extends StatelessWidget {
+   7:   const PrestServBuscaVidaApp({super.key});
+   8:   @override
+   9:   Widget build(BuildContext context) {
+  10:     return MaterialApp(
+  11:       title: 'Catálogo de Fornecedores de Serviço do Busca Vida',
+  12:       debugShowCheckedModeBanner: false,
+  13:       theme: AppTheme.lightTheme,
+  14:       home: StreamBuilder<User?>(
+  15:         stream: FirebaseAuth.instance.authStateChanges(),
+  16:         builder: (context, snapshot) {
+  17:           if (snapshot.connectionState == ConnectionState.waiting) {
+  18:             return const Scaffold(
+  19:               body: Center(child: CircularProgressIndicator()),
+  20:             );
+  21:           }
+  22:           if (snapshot.data == null) {
+  23:             return const AuthPage();
+  24:           }
+  25:           return const HomePage();
+  26:         },
+  27:       ),
+  28:     );
+  29:   }
+  30: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\core\theme\app_theme.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: class AppTheme {
+   3:   static ThemeData get lightTheme {
+   4:     return ThemeData(
+   5:       useMaterial3: true,
+   6:       colorSchemeSeed: Colors.blue,
+   7:       brightness: Brightness.light,
+   8:       scaffoldBackgroundColor: Colors.white,
+   9:       appBarTheme: const AppBarTheme(
+  10:         centerTitle: true,
+  11:         elevation: 0,
+  12:       ),
+  13:     );
+  14:   }
+  15: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\core\utils\phone_formatter.dart
+==================================================
+   1: String formatPhone(String raw) {
+   2:   final digits = raw.replaceAll(RegExp(r'\D'), '');
+   3:   if (digits.length == 11) {
+   4:     return '(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7)}';
+   5:   }
+   6:   if (digits.length == 10) {
+   7:     return '(${digits.substring(0, 2)}) ${digits.substring(2, 6)}-${digits.substring(6)}';
+   8:   }
+   9:   return raw;
+  10: }
+  11: 
+  12: String formatPhoneInput(String raw) {
+  13:   final digits = raw.replaceAll(RegExp(r'\D'), '');
+  14:   if (digits.isEmpty) return '';
+  15:   if (digits.length <= 2) return '(${digits}';
+  16:   if (digits.length <= 6) return '(${digits.substring(0, 2)}) ${digits.substring(2)}';
+  17:   final isCell = digits.length > 10 || (digits.length > 6 && digits[2] == '9');
+  18:   if (isCell) {
+  19:     if (digits.length <= 11) {
+  20:       return '(${digits.substring(0, 2)}) ${digits.substring(2, digits.length > 7 ? 7 : digits.length)}${digits.length > 7 ? '-${digits.substring(7)}' : ''}';
+  21:     }
+  22:     return '(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7, 11)}';
+  23:   } else {
+  24:     if (digits.length <= 10) {
+  25:       return '(${digits.substring(0, 2)}) ${digits.substring(2, digits.length > 6 ? 6 : digits.length)}${digits.length > 6 ? '-${digits.substring(6)}' : ''}';
+  26:     }
+  27:     return '(${digits.substring(0, 2)}) ${digits.substring(2, 6)}-${digits.substring(6, 10)}';
+  28:   }
+  29: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\models\category_model.dart
+==================================================
+   1: class CategoryModel {
+   2:   final String id;
+   3:   final String name;
+   4:   final String slug;
+   5:   final int order;
+   6:   final bool isActive;
+   7:   const CategoryModel({
+   8:     required this.id,
+   9:     required this.name,
+  10:     required this.slug,
+  11:     required this.order,
+  12:     required this.isActive,
+  13:   });
+  14:   factory CategoryModel.fromMap(
+  15:     Map<String, dynamic> map, {
+  16:     required String id,
+  17:   }) {
+  18:     return CategoryModel(
+  19:       id: id,
+  20:       name: (map['name'] ?? '').toString(),
+  21:       slug: (map['slug'] ?? '').toString(),
+  22:       order: (map['order'] ?? 0) as int,
+  23:       isActive: (map['isActive'] ?? true) as bool,
+  24:     );
+  25:   }
+  26:   Map<String, dynamic> toMap() {
+  27:     return {
+  28:       'name': name,
+  29:       'slug': slug,
+  30:       'order': order,
+  31:       'isActive': isActive,
+  32:     };
+  33:   }
+  34:   CategoryModel copyWith({
+  35:     String? id,
+  36:     String? name,
+  37:     String? slug,
+  38:     int? order,
+  39:     bool? isActive,
+  40:   }) {
+  41:     return CategoryModel(
+  42:       id: id ?? this.id,
+  43:       name: name ?? this.name,
+  44:       slug: slug ?? this.slug,
+  45:       order: order ?? this.order,
+  46:       isActive: isActive ?? this.isActive,
+  47:     );
+  48:   }
+  49: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\models\provider_model.dart
+==================================================
+   1: class ProviderModel {
+   2:   final String id;
+   3:   final String name;
+   4:   final String categoryId;
+   5:   final String categoryName;
+   6:   final String phone;
+   7:   final String whatsapp;
+   8:   final String description;
+   9:   final double avgRating;
+  10:   final int ratingCount;
+  11:   final bool isActive;
+  12:   final String status; // 'active' | 'pending' | 'rejected'
+  13:   final String? suggestedBy; // uid do usuário que sugeriu
+  14:   final String indicacao;
+  15:   final String observacao;
+  16:   const ProviderModel({
+  17:     required this.id,
+  18:     required this.name,
+  19:     required this.categoryId,
+  20:     this.categoryName = '',
+  21:     required this.phone,
+  22:     required this.whatsapp,
+  23:     required this.description,
+  24:     required this.avgRating,
+  25:     required this.ratingCount,
+  26:     required this.isActive,
+  27:     this.status = 'active',
+  28:     this.suggestedBy,
+  29:     this.indicacao = '',
+  30:     this.observacao = '',
+  31:   });
+  32:   factory ProviderModel.fromMap(
+  33:     Map<String, dynamic> map, {
+  34:     required String id,
+  35:   }) {
+  36:     return ProviderModel(
+  37:       id: id,
+  38:       name: (map['name'] ?? '').toString(),
+  39:       categoryId: (map['categoryId'] ?? '').toString(),
+  40:       categoryName: (map['categoryName'] ?? '').toString(),
+  41:       phone: (map['phone'] ?? '').toString(),
+  42:       whatsapp: (map['whatsapp'] ?? '').toString(),
+  43:       description: (map['description'] ?? '').toString(),
+  44:       avgRating: _toDouble(map['avgRating']),
+  45:       ratingCount: (map['ratingCount'] ?? 0) as int,
+  46:       isActive: (map['isActive'] ?? true) as bool,
+  47:       status: (map['status'] ?? 'active').toString(),
+  48:       suggestedBy: map['suggestedBy'] as String?,
+  49:       indicacao: (map['indicacao'] ?? '').toString(),
+  50:       observacao: (map['observacao'] ?? '').toString(),
+  51:     );
+  52:   }
+  53:   Map<String, dynamic> toMap() {
+  54:     return {
+  55:       'name': name,
+  56:       'categoryId': categoryId,
+  57:       'categoryName': categoryName,
+  58:       'phone': phone,
+  59:       'whatsapp': whatsapp,
+  60:       'description': description,
+  61:       'avgRating': avgRating,
+  62:       'ratingCount': ratingCount,
+  63:       'isActive': isActive,
+  64:       'status': status,
+  65:       'suggestedBy': suggestedBy,
+  66:       'indicacao': indicacao,
+  67:       'observacao': observacao,
+  68:     };
+  69:   }
+  70:   ProviderModel copyWith({
+  71:     String? id,
+  72:     String? name,
+  73:     String? categoryId,
+  74:     String? categoryName,
+  75:     String? phone,
+  76:     String? whatsapp,
+  77:     String? description,
+  78:     double? avgRating,
+  79:     int? ratingCount,
+  80:     bool? isActive,
+  81:     String? status,
+  82:     String? suggestedBy,
+  83:     String? indicacao,
+  84:     String? observacao,
+  85:   }) {
+  86:     return ProviderModel(
+  87:       id: id ?? this.id,
+  88:       name: name ?? this.name,
+  89:       categoryId: categoryId ?? this.categoryId,
+  90:       categoryName: categoryName ?? this.categoryName,
+  91:       phone: phone ?? this.phone,
+  92:       whatsapp: whatsapp ?? this.whatsapp,
+  93:       description: description ?? this.description,
+  94:       avgRating: avgRating ?? this.avgRating,
+  95:       ratingCount: ratingCount ?? this.ratingCount,
+  96:       isActive: isActive ?? this.isActive,
+  97:       status: status ?? this.status,
+  98:       suggestedBy: suggestedBy ?? this.suggestedBy,
+  99:       indicacao: indicacao ?? this.indicacao,
+ 100:       observacao: observacao ?? this.observacao,
+ 101:     );
+ 102:   }
+ 103:   static double _toDouble(dynamic value) {
+ 104:     if (value is int) return value.toDouble();
+ 105:     if (value is double) return value;
+ 106:     return double.tryParse(value.toString()) ?? 0;
+ 107:   }
+ 108: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\models\review_model.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: class ReviewModel {
+   3:   final String id;
+   4:   final String providerId;
+   5:   final String reviewerUid;
+   6:   final String reviewerName;
+   7:   final int rating;
+   8:   final String comment;
+   9:   final DateTime createdAt;
+  10:   const ReviewModel({
+  11:     required this.id,
+  12:     required this.providerId,
+  13:     required this.reviewerUid,
+  14:     required this.reviewerName,
+  15:     required this.rating,
+  16:     required this.comment,
+  17:     required this.createdAt,
+  18:   });
+  19:   factory ReviewModel.fromMap(
+  20:     Map<String, dynamic> map, {
+  21:     required String id,
+  22:   }) {
+  23:     return ReviewModel(
+  24:       id: id,
+  25:       providerId: (map['providerId'] ?? '').toString(),
+  26:       reviewerUid: (map['reviewerUid'] ?? '').toString(),
+  27:       reviewerName: (map['reviewerName'] ?? '').toString(),
+  28:       rating: (map['rating'] ?? 1) as int,
+  29:       comment: (map['comment'] ?? '').toString(),
+  30:       createdAt:
+  31:           (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+  32:     );
+  33:   }
+  34:   Map<String, dynamic> toMap() {
+  35:     return {
+  36:       'providerId': providerId,
+  37:       'reviewerUid': reviewerUid,
+  38:       'reviewerName': reviewerName,
+  39:       'rating': rating,
+  40:       'comment': comment,
+  41:       'createdAt': Timestamp.fromDate(createdAt),
+  42:     };
+  43:   }
+  44:   ReviewModel copyWith({
+  45:     String? id,
+  46:     String? providerId,
+  47:     String? reviewerUid,
+  48:     String? reviewerName,
+  49:     int? rating,
+  50:     String? comment,
+  51:     DateTime? createdAt,
+  52:   }) {
+  53:     return ReviewModel(
+  54:       id: id ?? this.id,
+  55:       providerId: providerId ?? this.providerId,
+  56:       reviewerUid: reviewerUid ?? this.reviewerUid,
+  57:       reviewerName: reviewerName ?? this.reviewerName,
+  58:       rating: rating ?? this.rating,
+  59:       comment: comment ?? this.comment,
+  60:       createdAt: createdAt ?? this.createdAt,
+  61:     );
+  62:   }
+  63: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\models\user_model.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: class UserModel {
+   3:   final String uid;
+   4:   final String? email;
+   5:   final String? phone;
+   6:   final String displayName;
+   7:   final String role;
+   8:   final DateTime createdAt;
+   9:   const UserModel({
+  10:     required this.uid,
+  11:     this.email,
+  12:     this.phone,
+  13:     required this.displayName,
+  14:     required this.role,
+  15:     required this.createdAt,
+  16:   });
+  17:   bool get isAdmin => role == 'admin';
+  18:   factory UserModel.fromMap(
+  19:     Map<String, dynamic> map, {
+  20:     required String uid,
+  21:   }) {
+  22:     return UserModel(
+  23:       uid: uid,
+  24:       email: map['email'] as String?,
+  25:       phone: map['phone'] as String?,
+  26:       displayName: (map['displayName'] ?? '').toString(),
+  27:       role: (map['role'] ?? 'user').toString(),
+  28:       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+  29:     );
+  30:   }
+  31:   Map<String, dynamic> toMap() {
+  32:     return {
+  33:       'email': email,
+  34:       'phone': phone,
+  35:       'displayName': displayName,
+  36:       'role': role,
+  37:       'createdAt': Timestamp.fromDate(createdAt),
+  38:     };
+  39:   }
+  40: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\repositories\auth_repository.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: import 'package:firebase_auth/firebase_auth.dart';
+   3: import '../models/user_model.dart';
+   4: class AuthRepository {
+   5:   final FirebaseAuth _auth;
+   6:   final FirebaseFirestore _firestore;
+   7:   AuthRepository({
+   8:     FirebaseAuth? auth,
+   9:     FirebaseFirestore? firestore,
+  10:   })  : _auth = auth ?? FirebaseAuth.instance,
+  11:         _firestore = firestore ?? FirebaseFirestore.instance;
+  12:   Stream<User?> get authStateChanges => _auth.authStateChanges();
+  13:   User? get currentUser => _auth.currentUser;
+  14:   // ── E-MAIL ──────────────────────────────────────────────────────────────
+  15:   Future<UserModel> signInWithEmail({
+  16:     required String email,
+  17:     required String password,
+  18:   }) async {
+  19:     final credential = await _auth.signInWithEmailAndPassword(
+  20:       email: email,
+  21:       password: password,
+  22:     );
+  23:     final userModel = await _getUserDocument(credential.user!.uid);
+  24:     if (userModel == null) {
+  25:       throw Exception('Usuário não encontrado. Crie uma conta primeiro.');
+  26:     }
+  27:     return userModel;
+  28:   }
+  29:   Future<UserModel> registerWithEmail({
+  30:     required String email,
+  31:     required String password,
+  32:     required String displayName,
+  33:   }) async {
+  34:     final credential = await _auth.createUserWithEmailAndPassword(
+  35:       email: email,
+  36:       password: password,
+  37:     );
+  38:     final user = credential.user!;
+  39:     await user.updateDisplayName(displayName);
+  40:     final role = await _claimAdminIfFirst(user.uid);
+  41:     return _createUserDocument(user, role: role, displayName: displayName);
+  42:   }
+  43:   // ── TELEFONE ──────────────────────────────────────────────────────────────
+  44:   /// Passo 1: enviar SMS.
+  45:   /// O número deve estar no formato E.164, ex: +5511999998888
+  46:   Future<void> startPhoneVerification({
+  47:     required String phoneNumber,
+  48:     required String displayName,
+  49:     required void Function(String verificationId) onCodeSent,
+  50:     required void Function(String error) onError,
+  51:     required void Function(UserModel user) onAutoVerified,
+  52:   }) async {
+  53:     await _auth.verifyPhoneNumber(
+  54:       phoneNumber: phoneNumber,
+  55:       verificationCompleted: (PhoneAuthCredential credential) async {
+  56:         // Android: verificação automática sem digitar o código
+  57:         final result = await _auth.signInWithCredential(credential);
+  58:         final user = result.user!;
+  59:         final existing = await _getUserDocument(user.uid);
+  60:         if (existing != null) {
+  61:           onAutoVerified(existing);
+  62:           return;
+  63:         }
+  64:         final role = await _claimAdminIfFirst(user.uid);
+  65:         final userModel = await _createUserDocument(
+  66:           user,
+  67:           role: role,
+  68:           displayName: displayName,
+  69:         );
+  70:         onAutoVerified(userModel);
+  71:       },
+  72:       verificationFailed: (FirebaseAuthException e) {
+  73:         onError(e.message ?? 'Erro ao verificar o telefone.');
+  74:       },
+  75:       codeSent: (String verificationId, int? resendToken) {
+  76:         onCodeSent(verificationId);
+  77:       },
+  78:       codeAutoRetrievalTimeout: (_) {},
+  79:     );
+  80:   }
+  81:   /// Passo 2: validar o código SMS digitado pelo usuário.
+  82:   Future<UserModel> signInWithPhoneCode({
+  83:     required String verificationId,
+  84:     required String smsCode,
+  85:     required String displayName,
+  86:   }) async {
+  87:     final credential = PhoneAuthProvider.credential(
+  88:       verificationId: verificationId,
+  89:       smsCode: smsCode,
+  90:     );
+  91:     final result = await _auth.signInWithCredential(credential);
+  92:     final user = result.user!;
+  93:     // Usuário já tinha conta → apenas retorna o documento existente
+  94:     final existing = await _getUserDocument(user.uid);
+  95:     if (existing != null) return existing;
+  96:     // Novo usuário
+  97:     final role = await _claimAdminIfFirst(user.uid);
+  98:     return _createUserDocument(user, role: role, displayName: displayName);
+  99:   }
+ 100:   // ── GERAL ─────────────────────────────────────────────────────────────────
+ 101:   Future<void> signOut() async {
+ 102:     await _auth.signOut();
+ 103:   }
+ 104:   Future<UserModel?> getCurrentUserModel() async {
+ 105:     final user = _auth.currentUser;
+ 106:     if (user == null) return null;
+ 107:     return _getUserDocument(user.uid);
+ 108:   }
+ 109:   // ── PRIVADOS ──────────────────────────────────────────────────────────────
+ 110:   /// Usa um contador atômico em 'meta/stats' para garantir que somente o
+ 111:   /// primeiro usuário a se cadastrar receba role 'admin', sem race condition.
+ 112:   Future<String> _claimAdminIfFirst(String uid) async {
+ 113:     final statsRef = _firestore.collection('meta').doc('stats');
+ 114:     String role = 'user';
+ 115:     await _firestore.runTransaction((transaction) async {
+ 116:       final snap = await transaction.get(statsRef);
+ 117:       final count = snap.exists ? (snap.data()!['userCount'] ?? 0) as int : 0;
+ 118:       if (count == 0) {
+ 119:         role = 'admin';
+ 120:       }
+ 121:       transaction.set(
+ 122:         statsRef,
+ 123:         {'userCount': count + 1},
+ 124:         SetOptions(merge: true),
+ 125:       );
+ 126:     });
+ 127:     return role;
+ 128:   }
+ 129:   Future<UserModel> _createUserDocument(
+ 130:     User firebaseUser, {
+ 131:     required String role,
+ 132:     required String displayName,
+ 133:   }) async {
+ 134:     final name = displayName.isNotEmpty
+ 135:         ? displayName
+ 136:         : (firebaseUser.displayName ??
+ 137:             firebaseUser.phoneNumber ??
+ 138:             'Usuário');
+ 139:     final userModel = UserModel(
+ 140:       uid: firebaseUser.uid,
+ 141:       email: firebaseUser.email,
+ 142:       phone: firebaseUser.phoneNumber,
+ 143:       displayName: name,
+ 144:       role: role,
+ 145:       createdAt: DateTime.now(),
+ 146:     );
+ 147:     await _firestore
+ 148:         .collection('users')
+ 149:         .doc(firebaseUser.uid)
+ 150:         .set(userModel.toMap());
+ 151:     return userModel;
+ 152:   }
+ 153:   Future<UserModel?> _getUserDocument(String uid) async {
+ 154:     final doc = await _firestore.collection('users').doc(uid).get();
+ 155:     if (!doc.exists || doc.data() == null) return null;
+ 156:     return UserModel.fromMap(doc.data()!, uid: uid);
+ 157:   }
+ 158: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\repositories\categories_repository.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: import '../models/category_model.dart';
+   3: class CategoriesRepository {
+   4:   final FirebaseFirestore _firestore;
+   5:   CategoriesRepository({
+   6:     FirebaseFirestore? firestore,
+   7:   }) : _firestore = firestore ?? FirebaseFirestore.instance;
+   8:   /// Retorna categorias ativas ordenadas pelo campo [order] (definido no Firestore).
+   9:   Future<List<CategoryModel>> fetchActiveCategories() async {
+  10:     final snapshot = await _firestore
+  11:         .collection('categories')
+  12:         .where('isActive', isEqualTo: true)
+  13:         .orderBy('order')
+  14:         .get();
+  15:     return snapshot.docs.map((doc) {
+  16:       return CategoryModel.fromMap(doc.data(), id: doc.id);
+  17:     }).toList();
+  18:   }
+  19:   Future<void> suggestCategory({required String name, required String suggestedByUid}) async {
+  20:     await _firestore.collection('category_suggestions').add({
+  21:       'name': name,
+  22:       'suggestedByUid': suggestedByUid,
+  23:       'status': 'pending',
+  24:       'createdAt': FieldValue.serverTimestamp(),
+  25:     });
+  26:   }
+  27:   /// Stream de categorias ativas ordenadas pelo campo [order].
+  28:   Stream<List<CategoryModel>> watchActiveCategories() {
+  29:     return _firestore
+  30:         .collection('categories')
+  31:         .where('isActive', isEqualTo: true)
+  32:         .orderBy('order')
+  33:         .snapshots()
+  34:         .map((snapshot) {
+  35:       return snapshot.docs.map((doc) {
+  36:         return CategoryModel.fromMap(doc.data(), id: doc.id);
+  37:       }).toList();
+  38:     });
+  39:   }
+  40: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\repositories\providers_repository.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: import '../models/provider_model.dart';
+   3: class ProvidersRepository {
+   4:   final FirebaseFirestore _firestore;
+   5:   ProvidersRepository({
+   6:     FirebaseFirestore? firestore,
+   7:   }) : _firestore = firestore ?? FirebaseFirestore.instance;
+   8:   // ── LEITURA PÚBLICA ───────────────────────────────────────────────────────────
+   9:   Stream<List<ProviderModel>> watchProvidersByCategory({
+  10:     required String categoryId,
+  11:   }) {
+  12:     return _firestore
+  13:         .collection('providers')
+  14:         .where('isActive', isEqualTo: true)
+  15:         .where('categoryId', isEqualTo: categoryId)
+  16:         .snapshots()
+  17:         .map((snapshot) {
+  18:       final providers = snapshot.docs.map((doc) {
+  19:         return ProviderModel.fromMap(doc.data(), id: doc.id);
+  20:       }).toList();
+  21:       providers.sort((a, b) => a.name.compareTo(b.name));
+  22:       return providers;
+  23:     });
+  24:   }
+  25:   Stream<List<ProviderModel>> watchProvidersForSearch({
+  26:     required String searchQuery,
+  27:   }) {
+  28:     return _firestore
+  29:         .collection('providers')
+  30:         .where('isActive', isEqualTo: true)
+  31:         .snapshots()
+  32:         .map((snapshot) {
+  33:       final providers = snapshot.docs.map((doc) {
+  34:         return ProviderModel.fromMap(doc.data(), id: doc.id);
+  35:       }).toList();
+  36:       final normalizedQuery = searchQuery.trim().toLowerCase();
+  37:       if (normalizedQuery.isEmpty) {
+  38:         providers.sort((a, b) => a.name.compareTo(b.name));
+  39:         return providers;
+  40:       }
+  41:       final filtered = providers.where((provider) {
+  42:         return provider.name.toLowerCase().contains(normalizedQuery) ||
+  43:             provider.description.toLowerCase().contains(normalizedQuery) ||
+  44:             provider.categoryName.toLowerCase().contains(normalizedQuery);
+  45:       }).toList();
+  46:       filtered.sort((a, b) => a.name.compareTo(b.name));
+  47:       return filtered;
+  48:     });
+  49:   }
+  50:   // ── ADMIN ────────────────────────────────────────────────────────────────────
+  51:   /// Stream de sugestões aguardando aprovação.
+  52:   Stream<List<ProviderModel>> watchPendingProviders() {
+  53:     return _firestore
+  54:         .collection('providers')
+  55:         .where('status', isEqualTo: 'pending')
+  56:         .snapshots()
+  57:         .map((snapshot) {
+  58:       final providers = snapshot.docs.map((doc) {
+  59:         return ProviderModel.fromMap(doc.data(), id: doc.id);
+  60:       }).toList();
+  61:       providers.sort((a, b) => a.name.compareTo(b.name));
+  62:       return providers;
+  63:     });
+  64:   }
+  65:   /// Admin adiciona prestador diretamente (já ativo).
+  66:   Future<void> addProvider({required ProviderModel provider}) async {
+  67:     await _firestore.collection('providers').add(provider.toMap());
+  68:   }
+  69:   /// Aprovar sugestão: torna o prestador visível no app.
+  70:   Future<void> approveProvider(String id) async {
+  71:     await _firestore.collection('providers').doc(id).update({
+  72:       'isActive': true,
+  73:       'status': 'active',
+  74:     });
+  75:   }
+  76:   /// Rejeitar sugestão: oculta o prestador sem excluir.
+  77:   Future<void> rejectProvider(String id) async {
+  78:     await _firestore.collection('providers').doc(id).update({
+  79:       'status': 'rejected',
+  80:     });
+  81:   }
+  82:   // ── USUÁRIO ──────────────────────────────────────────────────────────────────
+  83:   /// Usuário sugere um prestador (fica pendente até admin aprovar).
+  84:   Future<void> suggestProvider({required ProviderModel provider}) async {
+  85:     await _firestore.collection('providers').add(provider.toMap());
+  86:   }
+  87: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\data\repositories\reviews_repository.dart
+==================================================
+   1: import 'package:cloud_firestore/cloud_firestore.dart';
+   2: import '../models/review_model.dart';
+   3: class ReviewsRepository {
+   4:   final FirebaseFirestore _firestore;
+   5:   ReviewsRepository({
+   6:     FirebaseFirestore? firestore,
+   7:   }) : _firestore = firestore ?? FirebaseFirestore.instance;
+   8:   Stream<List<ReviewModel>> watchReviewsByProvider(String providerId) {
+   9:     return _firestore
+  10:         .collection('reviews')
+  11:         .where('providerId', isEqualTo: providerId)
+  12:         .snapshots()
+  13:         .map((snapshot) {
+  14:       final reviews = snapshot.docs.map((doc) {
+  15:         return ReviewModel.fromMap(doc.data(), id: doc.id);
+  16:       }).toList();
+  17:       reviews.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  18:       return reviews;
+  19:     });
+  20:   }
+  21:   /// Salva a avaliação e recalcula [avgRating] / [ratingCount] atomicamente
+  22:   /// via [runTransaction], eliminando a race condition de escrita concorrente.
+  23:   Future<void> addReview({required ReviewModel review}) async {
+  24:     final reviewRef = _firestore.collection('reviews').doc();
+  25:     final providerRef =
+  26:         _firestore.collection('providers').doc(review.providerId);
+  27:     await _firestore.runTransaction((transaction) async {
+  28:       final providerSnap = await transaction.get(providerRef);
+  29:       // Grava a avaliação
+  30:       transaction.set(reviewRef, review.toMap());
+  31:       // Atualiza o prestador somente se o documento existir
+  32:       if (providerSnap.exists) {
+  33:         final data = providerSnap.data()!;
+  34:         final currentCount = (data['ratingCount'] ?? 0) as int;
+  35:         final currentAvg = _toDouble(data['avgRating']);
+  36:         final newCount = currentCount + 1;
+  37:         final newAvg =
+  38:             ((currentAvg * currentCount) + review.rating) / newCount;
+  39:         transaction.update(providerRef, {
+  40:           'ratingCount': newCount,
+  41:           'avgRating': double.parse(newAvg.toStringAsFixed(1)),
+  42:         });
+  43:       }
+  44:     });
+  45:   }
+  46:   static double _toDouble(dynamic value) {
+  47:     if (value is int) return value.toDouble();
+  48:     if (value is double) return value;
+  49:     return double.tryParse(value.toString()) ?? 0;
+  50:   }
+  51: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\admin\admin_panel_page.dart
+==================================================
+   1: //import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
+   2: import 'package:flutter/material.dart';
+   3: import '../../core/utils/phone_formatter.dart';
+   4: import '../../data/models/category_model.dart';
+   5: import '../../data/models/provider_model.dart';
+   6: import '../../data/repositories/auth_repository.dart';
+   7: import '../../data/repositories/categories_repository.dart';
+   8: import '../../data/repositories/providers_repository.dart';
+   9: class AdminPanelPage extends StatefulWidget {
+  10:   const AdminPanelPage({super.key});
+  11:   @override
+  12:   State<AdminPanelPage> createState() => _AdminPanelPageState();
+  13: }
+  14: class _AdminPanelPageState extends State<AdminPanelPage>
+  15:     with SingleTickerProviderStateMixin {
+  16:   late final TabController _tabController;
+  17:   final _providersRepository = ProvidersRepository();
+  18:   final _categoriesRepository = CategoriesRepository();
+  19:   final _authRepository = AuthRepository();
+  20:   bool _authorized = false;
+  21:   bool _checkingAuth = true;
+  22:   @override
+  23:   void initState() {
+  24:     super.initState();
+  25:     _tabController = TabController(length: 2, vsync: this);
+  26:     _checkRole();
+  27:   }
+  28:   Future<void> _checkRole() async {
+  29:     final user = await _authRepository.getCurrentUserModel();
+  30:     if (mounted) {
+  31:       setState(() {
+  32:         _authorized = user?.isAdmin ?? false;
+  33:         _checkingAuth = false;
+  34:       });
+  35:     }
+  36:   }
+  37:   @override
+  38:   void dispose() {
+  39:     _tabController.dispose();
+  40:     super.dispose();
+  41:   }
+  42:   @override
+  43:   Widget build(BuildContext context) {
+  44:     if (_checkingAuth) {
+  45:       return const Scaffold(
+  46:         body: Center(child: CircularProgressIndicator()),
+  47:       );
+  48:     }
+  49:     if (!_authorized) {
+  50:       return Scaffold(
+  51:         appBar: AppBar(title: const Text('Acesso negado')),
+  52:         body: const Center(
+  53:           child: Text('Você não tem permissão para acessar esta área.'),
+  54:         ),
+  55:       );
+  56:     }
+  57:     return Scaffold(
+  58:       appBar: AppBar(
+  59:         title: const Text('Painel de administração'),
+  60:         bottom: TabBar(
+  61:           controller: _tabController,
+  62:           tabs: const [
+  63:             Tab(text: 'Sugestões pendentes'),
+  64:             Tab(text: 'Adicionar prestador'),
+  65:           ],
+  66:         ),
+  67:       ),
+  68:       body: TabBarView(
+  69:         controller: _tabController,
+  70:         children: [
+  71:           _PendingTab(providersRepository: _providersRepository),
+  72:           _AddProviderTab(
+  73:             providersRepository: _providersRepository,
+  74:             categoriesRepository: _categoriesRepository,
+  75:           ),
+  76:         ],
+  77:       ),
+  78:     );
+  79:   }
+  80: }
+  81: // ── ABA: SUGESTÕES PENDENTES ──────────────────────────────────────────────
+  82: class _PendingTab extends StatefulWidget {
+  83:   final ProvidersRepository providersRepository;
+  84:   const _PendingTab({required this.providersRepository});
+  85:   @override
+  86:   State<_PendingTab> createState() => _PendingTabState();
+  87: }
+  88: class _PendingTabState extends State<_PendingTab> {
+  89:   Future<void> _approve(ProviderModel provider) async {
+  90:     await widget.providersRepository.approveProvider(provider.id);
+  91:     if (mounted) {
+  92:       ScaffoldMessenger.of(context).showSnackBar(
+  93:         SnackBar(content: Text('${provider.name} aprovado com sucesso.')),
+  94:       );
+  95:     }
+  96:   }
+  97:   Future<void> _reject(ProviderModel provider) async {
+  98:     final confirmed = await showDialog<bool>(
+  99:       context: context,
+ 100:       builder: (ctx) => AlertDialog(
+ 101:         title: const Text('Rejeitar sugestão'),
+ 102:         content: Text('Deseja rejeitar "${provider.name}"?'),
+ 103:         actions: [
+ 104:           TextButton(
+ 105:             onPressed: () => Navigator.pop(ctx, false),
+ 106:             child: const Text('Cancelar'),
+ 107:           ),
+ 108:           FilledButton(
+ 109:             style: FilledButton.styleFrom(
+ 110:               backgroundColor: Theme.of(context).colorScheme.error,
+ 111:             ),
+ 112:             onPressed: () => Navigator.pop(ctx, true),
+ 113:             child: const Text('Rejeitar'),
+ 114:           ),
+ 115:         ],
+ 116:       ),
+ 117:     );
+ 118:     if (confirmed == true) {
+ 119:       await widget.providersRepository.rejectProvider(provider.id);
+ 120:       if (mounted) {
+ 121:         ScaffoldMessenger.of(context).showSnackBar(
+ 122:           SnackBar(content: Text('${provider.name} rejeitado.')),
+ 123:         );
+ 124:       }
+ 125:     }
+ 126:   }
+ 127:   @override
+ 128:   Widget build(BuildContext context) {
+ 129:     return StreamBuilder<List<ProviderModel>>(
+ 130:       stream: widget.providersRepository.watchPendingProviders(),
+ 131:       builder: (context, snapshot) {
+ 132:         if (snapshot.connectionState == ConnectionState.waiting) {
+ 133:           return const Center(child: CircularProgressIndicator());
+ 134:         }
+ 135:         if (snapshot.hasError) {
+ 136:           return Center(child: Text('Erro: ${snapshot.error}'));
+ 137:         }
+ 138:         final pending = snapshot.data ?? [];
+ 139:         if (pending.isEmpty) {
+ 140:           return const Center(
+ 141:             child: Padding(
+ 142:               padding: EdgeInsets.all(20),
+ 143:               child: Text(
+ 144:                 'Nenhuma sugestão pendente.',
+ 145:                 textAlign: TextAlign.center,
+ 146:               ),
+ 147:             ),
+ 148:           );
+ 149:         }
+ 150:         return ListView.separated(
+ 151:           itemCount: pending.length,
+ 152:           separatorBuilder: (_, _) => const Divider(height: 1),
+ 153:           itemBuilder: (context, index) {
+ 154:             final provider = pending[index];
+ 155:             return ListTile(
+ 156:               title: Text(provider.name),
+ 157:               subtitle: Text(
+ 158:                 '${provider.categoryName.isNotEmpty ? provider.categoryName : provider.categoryId}'
+ 159:                 '${provider.description.isNotEmpty ? '\n${provider.description}' : ''}',
+ 160:               ),
+ 161:               isThreeLine: provider.description.isNotEmpty,
+ 162:               trailing: Row(
+ 163:                 mainAxisSize: MainAxisSize.min,
+ 164:                 children: [
+ 165:                   IconButton(
+ 166:                     icon: const Icon(Icons.check_circle_outline),
+ 167:                     color: Colors.green,
+ 168:                     tooltip: 'Aprovar',
+ 169:                     onPressed: () => _approve(provider),
+ 170:                   ),
+ 171:                   IconButton(
+ 172:                     icon: const Icon(Icons.cancel_outlined),
+ 173:                     color: Colors.red,
+ 174:                     tooltip: 'Rejeitar',
+ 175:                     onPressed: () => _reject(provider),
+ 176:                   ),
+ 177:                 ],
+ 178:               ),
+ 179:             );
+ 180:           },
+ 181:         );
+ 182:       },
+ 183:     );
+ 184:   }
+ 185: }
+ 186: // ── ABA: ADICIONAR PRESTADOR ──────────────────────────────────────────────
+ 187: class _AddProviderTab extends StatefulWidget {
+ 188:   final ProvidersRepository providersRepository;
+ 189:   final CategoriesRepository categoriesRepository;
+ 190:   const _AddProviderTab({
+ 191:     required this.providersRepository,
+ 192:     required this.categoriesRepository,
+ 193:   });
+ 194:   @override
+ 195:   State<_AddProviderTab> createState() => _AddProviderTabState();
+ 196: }
+ 197: class _AddProviderTabState extends State<_AddProviderTab> {
+ 198:   final _nameController = TextEditingController();
+ 199:   final _phoneController = TextEditingController();
+ 200:   final _whatsappController = TextEditingController();
+ 201:   final _descriptionController = TextEditingController();
+ 202:   final _indicacaoController = TextEditingController();
+ 203:   final _observacaoController = TextEditingController();
+ 204:   CategoryModel? _selectedCategory;
+ 205:   List<CategoryModel> _categories = [];
+ 206:   bool _isLoading = false;
+ 207:   bool _loadingCategories = true;
+ 208:   String? _errorMessage;
+ 209:   String? _categoriesError;
+ 210:   @override
+ 211:   void initState() {
+ 212:     super.initState();
+ 213:     _loadCategories();
+ 214:   }
+ 215:   @override
+ 216:   void dispose() {
+ 217:     _nameController.dispose();
+ 218:     _phoneController.dispose();
+ 219:     _whatsappController.dispose();
+ 220:     _descriptionController.dispose();
+ 221:     _indicacaoController.dispose();
+ 222:     _observacaoController.dispose();
+ 223:     super.dispose();
+ 224:   }
+ 225:   Future<void> _loadCategories() async {
+ 226:     try {
+ 227:       final cats =
+ 228:           await widget.categoriesRepository.fetchActiveCategories();
+ 229:       if (mounted) {
+ 230:         setState(() {
+ 231:           _categories = cats;
+ 232:           _loadingCategories = false;
+ 233:         });
+ 234:       }
+ 235:     } catch (e) {
+ 236:       if (mounted) {
+ 237:         setState(() {
+ 238:           _categoriesError =
+ 239:               'Não foi possível carregar as categorias. Tente novamente.';
+ 240:           _loadingCategories = false;
+ 241:         });
+ 242:       }
+ 243:     }
+ 244:   }
+ 245:   Future<void> _submit() async {
+ 246:     final name = _nameController.text.trim();
+ 247:     if (name.isEmpty) {
+ 248:       setState(() => _errorMessage = 'Informe o nome do prestador.');
+ 249:       return;
+ 250:     }
+ 251:     if (_selectedCategory == null) {
+ 252:       setState(() => _errorMessage = 'Selecione uma categoria.');
+ 253:       return;
+ 254:     }
+ 255:     setState(() {
+ 256:       _isLoading = true;
+ 257:       _errorMessage = null;
+ 258:     });
+ 259:     try {
+ 260:       final provider = ProviderModel(
+ 261:         id: '',
+ 262:         name: name,
+ 263:         categoryId: _selectedCategory!.id,
+ 264:         categoryName: _selectedCategory!.name,
+ 265:         phone: _phoneController.text.trim(),
+ 266:         whatsapp: _whatsappController.text.trim(),
+ 267:         description: _descriptionController.text.trim(),
+ 268:         indicacao: _indicacaoController.text.trim(),
+ 269:         observacao: _observacaoController.text.trim(),
+ 270:         avgRating: 0,
+ 271:         ratingCount: 0,
+ 272:         isActive: true,
+ 273:         status: 'active',
+ 274:       );
+ 275:       await widget.providersRepository.addProvider(provider: provider);
+ 276:       if (mounted) {
+ 277:         _nameController.clear();
+ 278:         _phoneController.clear();
+ 279:         _whatsappController.clear();
+ 280:         _descriptionController.clear();
+ 281:         _indicacaoController.clear();
+ 282:         _observacaoController.clear();
+ 283:         setState(() => _selectedCategory = null);
+ 284:         ScaffoldMessenger.of(context).showSnackBar(
+ 285:           const SnackBar(
+ 286:               content: Text('Prestador adicionado com sucesso!')),
+ 287:         );
+ 288:       }
+ 289:     } catch (e) {
+ 290:       if (mounted) {
+ 291:         setState(() => _errorMessage = 'Erro ao salvar. Tente novamente.');
+ 292:       }
+ 293:     } finally {
+ 294:       if (mounted) setState(() => _isLoading = false);
+ 295:     }
+ 296:   }
+ 297:   @override
+ 298:   Widget build(BuildContext context) {
+ 299:     return SingleChildScrollView(
+ 300:       padding: const EdgeInsets.all(20),
+ 301:       child: Column(
+ 302:         crossAxisAlignment: CrossAxisAlignment.stretch,
+ 303:         children: [
+ 304:           const SizedBox(height: 4),
+ 305:           TextField(
+ 306:             controller: _nameController,
+ 307:             decoration: const InputDecoration(
+ 308:               labelText: 'Nome do prestador *',
+ 309:               border: OutlineInputBorder(),
+ 310:             ),
+ 311:             textCapitalization: TextCapitalization.words,
+ 312:           ),
+ 313:           const SizedBox(height: 16),
+ 314:           if (_loadingCategories)
+ 315:             const Center(child: CircularProgressIndicator())
+ 316:           else if (_categoriesError != null)
+ 317:             Column(
+ 318:               crossAxisAlignment: CrossAxisAlignment.stretch,
+ 319:               children: [
+ 320:                 Text(
+ 321:                   _categoriesError!,
+ 322:                   style: TextStyle(
+ 323:                       color: Theme.of(context).colorScheme.error),
+ 324:                 ),
+ 325:                 const SizedBox(height: 8),
+ 326:                 OutlinedButton(
+ 327:                   onPressed: () {
+ 328:                     setState(() {
+ 329:                       _loadingCategories = true;
+ 330:                       _categoriesError = null;
+ 331:                     });
+ 332:                     _loadCategories();
+ 333:                   },
+ 334:                   child: const Text('Tentar novamente'),
+ 335:                 ),
+ 336:               ],
+ 337:             )
+ 338:           else
+ 339:             InputDecorator(
+ 340:               decoration: const InputDecoration(
+ 341:                 labelText: 'Categoria *',
+ 342:                 border: OutlineInputBorder(),
+ 343:               ),
+ 344:               child: DropdownButton<CategoryModel>(
+ 345:                 value: _selectedCategory,
+ 346:                 isExpanded: true,
+ 347:                 underline: const SizedBox.shrink(),
+ 348:                 hint: const Text('Selecione'),
+ 349:                 items: _categories
+ 350:                     .map(
+ 351:                       (cat) => DropdownMenuItem(
+ 352:                           value: cat, child: Text(cat.name)),
+ 353:                     )
+ 354:                     .toList(),
+ 355:                 onChanged: (cat) =>
+ 356:                     setState(() => _selectedCategory = cat),
+ 357:               ),
+ 358:             ),
+ 359:           const SizedBox(height: 16),
+ 360:           TextField(
+ 361:             controller: _phoneController,
+ 362:             decoration: const InputDecoration(
+ 363:               labelText: 'Telefone',
+ 364:               border: OutlineInputBorder(),
+ 365:             ),
+ 366:             keyboardType: TextInputType.phone,
+ 367:             onChanged: (v) {
+ 368:               final formatted = formatPhoneInput(v);
+ 369:               if (formatted != v) {
+ 370:                 _phoneController.value = TextEditingValue(
+ 371:                   text: formatted,
+ 372:                   selection: TextSelection.collapsed(offset: formatted.length),
+ 373:                 );
+ 374:               }
+ 375:             },
+ 376:           ),
+ 377:           const SizedBox(height: 16),
+ 378:           TextField(
+ 379:             controller: _whatsappController,
+ 380:             decoration: const InputDecoration(
+ 381:               labelText: 'WhatsApp',
+ 382:               border: OutlineInputBorder(),
+ 383:             ),
+ 384:             keyboardType: TextInputType.phone,
+ 385:             onChanged: (v) {
+ 386:               final formatted = formatPhoneInput(v);
+ 387:               if (formatted != v) {
+ 388:                 _whatsappController.value = TextEditingValue(
+ 389:                   text: formatted,
+ 390:                   selection: TextSelection.collapsed(offset: formatted.length),
+ 391:                 );
+ 392:               }
+ 393:             },
+ 394:           ),
+ 395:           const SizedBox(height: 16),
+ 396:           TextField(
+ 397:             controller: _descriptionController,
+ 398:             decoration: const InputDecoration(
+ 399:               labelText: 'Descrição dos serviços',
+ 400:               border: OutlineInputBorder(),
+ 401:               alignLabelWithHint: true,
+ 402:             ),
+ 403:             maxLines: 4,
+ 404:             textCapitalization: TextCapitalization.sentences,
+ 405:           ),
+ 406:           const SizedBox(height: 16),
+ 407:           TextField(
+ 408:             controller: _indicacaoController,
+ 409:             decoration: const InputDecoration(
+ 410:               labelText: 'Indicação (quem indicou)',
+ 411:               border: OutlineInputBorder(),
+ 412:             ),
+ 413:             textCapitalization: TextCapitalization.words,
+ 414:           ),
+ 415:           const SizedBox(height: 16),
+ 416:           TextField(
+ 417:             controller: _observacaoController,
+ 418:             decoration: const InputDecoration(
+ 419:               labelText: 'Observação interna',
+ 420:               border: OutlineInputBorder(),
+ 421:               alignLabelWithHint: true,
+ 422:             ),
+ 423:             maxLines: 3,
+ 424:             textCapitalization: TextCapitalization.sentences,
+ 425:           ),
+ 426:           if (_errorMessage != null) ...[
+ 427:             const SizedBox(height: 12),
+ 428:             Text(
+ 429:               _errorMessage!,
+ 430:               style: TextStyle(
+ 431:                   color: Theme.of(context).colorScheme.error),
+ 432:             ),
+ 433:           ],
+ 434:           const SizedBox(height: 24),
+ 435:           FilledButton(
+ 436:             onPressed: _isLoading ? null : _submit,
+ 437:             child: _isLoading
+ 438:                 ? const SizedBox(
+ 439:                     height: 20,
+ 440:                     width: 20,
+ 441:                     child: CircularProgressIndicator(strokeWidth: 2),
+ 442:                   )
+ 443:                 : const Text('Adicionar prestador'),
+ 444:           ),
+ 445:         ],
+ 446:       ),
+ 447:     );
+ 448:   }
+ 449: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\auth\auth_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import 'package:flutter/services.dart';
+   3: import '../../data/repositories/auth_repository.dart';
+   4: class AuthPage extends StatefulWidget {
+   5:   const AuthPage({super.key});
+   6:   @override
+   7:   State<AuthPage> createState() => _AuthPageState();
+   8: }
+   9: class _AuthPageState extends State<AuthPage>
+  10:     with SingleTickerProviderStateMixin {
+  11:   late final TabController _tabController;
+  12:   final _authRepository = AuthRepository();
+  13:   @override
+  14:   void initState() {
+  15:     super.initState();
+  16:     _tabController = TabController(length: 2, vsync: this);
+  17:   }
+  18:   @override
+  19:   void dispose() {
+  20:     _tabController.dispose();
+  21:     super.dispose();
+  22:   }
+  23:   @override
+  24:   Widget build(BuildContext context) {
+  25:     return Scaffold(
+  26:       appBar: AppBar(
+  27:         title: const Text('Busca Vida Serviços'),
+  28:         bottom: TabBar(
+  29:           controller: _tabController,
+  30:           tabs: const [
+  31:             Tab(text: 'E-mail'),
+  32:             Tab(text: 'Telefone'),
+  33:           ],
+  34:         ),
+  35:       ),
+  36:       body: TabBarView(
+  37:         controller: _tabController,
+  38:         children: [
+  39:           _EmailTab(authRepository: _authRepository),
+  40:           _PhoneTab(authRepository: _authRepository),
+  41:         ],
+  42:       ),
+  43:     );
+  44:   }
+  45: }
+  46: // ── ABA E-MAIL ────────────────────────────────────────────────────────────────
+  47: class _EmailTab extends StatefulWidget {
+  48:   final AuthRepository authRepository;
+  49:   const _EmailTab({required this.authRepository});
+  50:   @override
+  51:   State<_EmailTab> createState() => _EmailTabState();
+  52: }
+  53: class _EmailTabState extends State<_EmailTab> {
+  54:   final _nameController = TextEditingController();
+  55:   final _emailController = TextEditingController();
+  56:   final _passwordController = TextEditingController();
+  57:   bool _isRegisterMode = false;
+  58:   bool _isLoading = false;
+  59:   bool _obscurePassword = true;
+  60:   String? _errorMessage;
+  61:   @override
+  62:   void dispose() {
+  63:     _nameController.dispose();
+  64:     _emailController.dispose();
+  65:     _passwordController.dispose();
+  66:     super.dispose();
+  67:   }
+  68:   Future<void> _submit() async {
+  69:     final name = _nameController.text.trim();
+  70:     final email = _emailController.text.trim();
+  71:     final password = _passwordController.text;
+  72:     if (_isRegisterMode && name.isEmpty) {
+  73:       setState(() => _errorMessage = 'Informe seu nome.');
+  74:       return;
+  75:     }
+  76:     if (email.isEmpty || password.isEmpty) {
+  77:       setState(() => _errorMessage = 'Preencha todos os campos.');
+  78:       return;
+  79:     }
+  80:     if (password.length < 6) {
+  81:       setState(() => _errorMessage = 'A senha deve ter no mínimo 6 caracteres.');
+  82:       return;
+  83:     }
+  84:     setState(() {
+  85:       _isLoading = true;
+  86:       _errorMessage = null;
+  87:     });
+  88:     try {
+  89:       if (_isRegisterMode) {
+  90:         await widget.authRepository.registerWithEmail(
+  91:           email: email,
+  92:           password: password,
+  93:           displayName: name,
+  94:         );
+  95:       } else {
+  96:         await widget.authRepository.signInWithEmail(
+  97:           email: email,
+  98:           password: password,
+  99:         );
+ 100:       }
+ 101:       // O StreamBuilder em app.dart redireciona automaticamente após login.
+ 102:     } catch (e) {
+ 103:       if (mounted) {
+ 104:         setState(() => _errorMessage = _friendlyError(e.toString()));
+ 105:       }
+ 106:     } finally {
+ 107:       if (mounted) setState(() => _isLoading = false);
+ 108:     }
+ 109:   }
+ 110:   String _friendlyError(String raw) {
+ 111:     if (raw.contains('user-not-found') || raw.contains('wrong-password') ||
+ 112:         raw.contains('invalid-credential')) {
+ 113:       return 'E-mail ou senha incorretos.';
+ 114:     }
+ 115:     if (raw.contains('email-already-in-use')) {
+ 116:       return 'Este e-mail já está cadastrado.';
+ 117:     }
+ 118:     if (raw.contains('invalid-email')) {
+ 119:       return 'E-mail inválido.';
+ 120:     }
+ 121:     if (raw.contains('network-request-failed')) {
+ 122:       return 'Sem conexão com a internet.';
+ 123:     }
+ 124:     return 'Ocorreu um erro. Tente novamente.';
+ 125:   }
+ 126:   @override
+ 127:   Widget build(BuildContext context) {
+ 128:     return SingleChildScrollView(
+ 129:       padding: const EdgeInsets.all(24),
+ 130:       child: Column(
+ 131:         crossAxisAlignment: CrossAxisAlignment.stretch,
+ 132:         children: [
+ 133:           const SizedBox(height: 12),
+ 134:           Text(
+ 135:             _isRegisterMode ? 'Criar conta' : 'Entrar',
+ 136:             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+ 137:           ),
+ 138:           const SizedBox(height: 24),
+ 139:           if (_isRegisterMode) ...[
+ 140:             TextField(
+ 141:               controller: _nameController,
+ 142:               decoration: const InputDecoration(
+ 143:                 labelText: 'Nome completo',
+ 144:                 border: OutlineInputBorder(),
+ 145:               ),
+ 146:               textCapitalization: TextCapitalization.words,
+ 147:             ),
+ 148:             const SizedBox(height: 16),
+ 149:           ],
+ 150:           TextField(
+ 151:             controller: _emailController,
+ 152:             decoration: const InputDecoration(
+ 153:               labelText: 'E-mail',
+ 154:               border: OutlineInputBorder(),
+ 155:             ),
+ 156:             keyboardType: TextInputType.emailAddress,
+ 157:           ),
+ 158:           const SizedBox(height: 16),
+ 159:           TextField(
+ 160:             controller: _passwordController,
+ 161:             decoration: InputDecoration(
+ 162:               labelText: 'Senha',
+ 163:               border: const OutlineInputBorder(),
+ 164:               suffixIcon: IconButton(
+ 165:                 icon: Icon(
+ 166:                   _obscurePassword ? Icons.visibility : Icons.visibility_off,
+ 167:                 ),
+ 168:                 onPressed: () =>
+ 169:                     setState(() => _obscurePassword = !_obscurePassword),
+ 170:               ),
+ 171:             ),
+ 172:             obscureText: _obscurePassword,
+ 173:           ),
+ 174:           if (_errorMessage != null) ...[
+ 175:             const SizedBox(height: 12),
+ 176:             Text(
+ 177:               _errorMessage!,
+ 178:               style: TextStyle(color: Theme.of(context).colorScheme.error),
+ 179:             ),
+ 180:           ],
+ 181:           const SizedBox(height: 24),
+ 182:           FilledButton(
+ 183:             onPressed: _isLoading ? null : _submit,
+ 184:             child: _isLoading
+ 185:                 ? const SizedBox(
+ 186:                     height: 20,
+ 187:                     width: 20,
+ 188:                     child: CircularProgressIndicator(strokeWidth: 2),
+ 189:                   )
+ 190:                 : Text(_isRegisterMode ? 'Criar conta' : 'Entrar'),
+ 191:           ),
+ 192:           const SizedBox(height: 12),
+ 193:           TextButton(
+ 194:             onPressed: () {
+ 195:               setState(() {
+ 196:                 _isRegisterMode = !_isRegisterMode;
+ 197:                 _errorMessage = null;
+ 198:               });
+ 199:             },
+ 200:             child: Text(
+ 201:               _isRegisterMode
+ 202:                   ? 'Já tenho conta — Entrar'
+ 203:                   : 'Não tenho conta — Criar conta',
+ 204:             ),
+ 205:           ),
+ 206:         ],
+ 207:       ),
+ 208:     );
+ 209:   }
+ 210: }
+ 211: // ── ABA TELEFONE ──────────────────────────────────────────────────────────────
+ 212: class _PhoneTab extends StatefulWidget {
+ 213:   final AuthRepository authRepository;
+ 214:   const _PhoneTab({required this.authRepository});
+ 215:   @override
+ 216:   State<_PhoneTab> createState() => _PhoneTabState();
+ 217: }
+ 218: class _PhoneTabState extends State<_PhoneTab> {
+ 219:   final _nameController = TextEditingController();
+ 220:   final _phoneController = TextEditingController();
+ 221:   final _codeController = TextEditingController();
+ 222:   String? _verificationId;
+ 223:   bool _isLoading = false;
+ 224:   String? _errorMessage;
+ 225:   @override
+ 226:   void dispose() {
+ 227:     _nameController.dispose();
+ 228:     _phoneController.dispose();
+ 229:     _codeController.dispose();
+ 230:     super.dispose();
+ 231:   }
+ 232:   Future<void> _sendCode() async {
+ 233:     final name = _nameController.text.trim();
+ 234:     final phone = _phoneController.text.replaceAll(RegExp(r'\D'), '');
+ 235:     if (name.isEmpty) {
+ 236:       setState(() => _errorMessage = 'Informe seu nome.');
+ 237:       return;
+ 238:     }
+ 239:     if (phone.length < 10) {
+ 240:       setState(() => _errorMessage = 'Informe um número de telefone válido com DDD.');
+ 241:       return;
+ 242:     }
+ 243:     setState(() {
+ 244:       _isLoading = true;
+ 245:       _errorMessage = null;
+ 246:     });
+ 247:     await widget.authRepository.startPhoneVerification(
+ 248:       phoneNumber: '+55$phone',
+ 249:       displayName: name,
+ 250:       onCodeSent: (verificationId) {
+ 251:         if (mounted) {
+ 252:           setState(() {
+ 253:             _verificationId = verificationId;
+ 254:             _isLoading = false;
+ 255:           });
+ 256:         }
+ 257:       },
+ 258:       onError: (error) {
+ 259:         if (mounted) {
+ 260:           setState(() {
+ 261:             _errorMessage = error;
+ 262:             _isLoading = false;
+ 263:           });
+ 264:         }
+ 265:       },
+ 266:       onAutoVerified: (_) {
+ 267:         // O StreamBuilder em app.dart redireciona automaticamente.
+ 268:       },
+ 269:     );
+ 270:   }
+ 271:   Future<void> _confirmCode() async {
+ 272:     final code = _codeController.text.trim();
+ 273:     if (code.length != 6) {
+ 274:       setState(() => _errorMessage = 'O código deve ter 6 dígitos.');
+ 275:       return;
+ 276:     }
+ 277:     setState(() {
+ 278:       _isLoading = true;
+ 279:       _errorMessage = null;
+ 280:     });
+ 281:     try {
+ 282:       await widget.authRepository.signInWithPhoneCode(
+ 283:         verificationId: _verificationId!,
+ 284:         smsCode: code,
+ 285:         displayName: _nameController.text.trim(),
+ 286:       );
+ 287:       // O StreamBuilder em app.dart redireciona automaticamente.
+ 288:     } catch (e) {
+ 289:       if (mounted) {
+ 290:         setState(() {
+ 291:           _errorMessage = 'Código inválido. Verifique e tente novamente.';
+ 292:           _isLoading = false;
+ 293:         });
+ 294:       }
+ 295:     }
+ 296:   }
+ 297:   @override
+ 298:   Widget build(BuildContext context) {
+ 299:     return SingleChildScrollView(
+ 300:       padding: const EdgeInsets.all(24),
+ 301:       child: Column(
+ 302:         crossAxisAlignment: CrossAxisAlignment.stretch,
+ 303:         children: [
+ 304:           const SizedBox(height: 12),
+ 305:           Text(
+ 306:             _verificationId == null ? 'Entrar com telefone' : 'Confirmar código',
+ 307:             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+ 308:           ),
+ 309:           const SizedBox(height: 24),
+ 310:           if (_verificationId == null) ...[
+ 311:             TextField(
+ 312:               controller: _nameController,
+ 313:               decoration: const InputDecoration(
+ 314:                 labelText: 'Nome completo',
+ 315:                 border: OutlineInputBorder(),
+ 316:               ),
+ 317:               textCapitalization: TextCapitalization.words,
+ 318:             ),
+ 319:             const SizedBox(height: 16),
+ 320:             TextField(
+ 321:               controller: _phoneController,
+ 322:               decoration: const InputDecoration(
+ 323:                 labelText: 'Telefone com DDD (somente números)',
+ 324:                 border: OutlineInputBorder(),
+ 325:                 prefixText: '+55 ',
+ 326:               ),
+ 327:               keyboardType: TextInputType.phone,
+ 328:               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+ 329:             ),
+ 330:           ] else ...[
+ 331:             Text(
+ 332:               'Código enviado para +55 ${_phoneController.text}',
+ 333:               style: const TextStyle(fontSize: 15),
+ 334:             ),
+ 335:             const SizedBox(height: 16),
+ 336:             TextField(
+ 337:               controller: _codeController,
+ 338:               decoration: const InputDecoration(
+ 339:                 labelText: 'Código SMS (6 dígitos)',
+ 340:                 border: OutlineInputBorder(),
+ 341:               ),
+ 342:               keyboardType: TextInputType.number,
+ 343:               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+ 344:               maxLength: 6,
+ 345:             ),
+ 346:           ],
+ 347:           if (_errorMessage != null) ...[
+ 348:             const SizedBox(height: 8),
+ 349:             Text(
+ 350:               _errorMessage!,
+ 351:               style: TextStyle(color: Theme.of(context).colorScheme.error),
+ 352:             ),
+ 353:           ],
+ 354:           const SizedBox(height: 24),
+ 355:           FilledButton(
+ 356:             onPressed: _isLoading
+ 357:                 ? null
+ 358:                 : (_verificationId == null ? _sendCode : _confirmCode),
+ 359:             child: _isLoading
+ 360:                 ? const SizedBox(
+ 361:                     height: 20,
+ 362:                     width: 20,
+ 363:                     child: CircularProgressIndicator(strokeWidth: 2),
+ 364:                   )
+ 365:                 : Text(
+ 366:                     _verificationId == null ? 'Enviar código' : 'Confirmar',
+ 367:                   ),
+ 368:           ),
+ 369:           if (_verificationId != null) ...[
+ 370:             const SizedBox(height: 12),
+ 371:             TextButton(
+ 372:               onPressed: _isLoading
+ 373:                   ? null
+ 374:                   : () => setState(() {
+ 375:                         _verificationId = null;
+ 376:                         _codeController.clear();
+ 377:                         _errorMessage = null;
+ 378:                       }),
+ 379:               child: const Text('Corrigir número de telefone'),
+ 380:             ),
+ 381:           ],
+ 382:         ],
+ 383:       ),
+ 384:     );
+ 385:   }
+ 386: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\categories\categories_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import 'package:flutter/services.dart';
+   3: import '../../data/models/category_model.dart';
+   4: import '../../data/repositories/categories_repository.dart';
+   5: import '../providers/providers_page.dart';
+   6: class CategoriesPage extends StatefulWidget {
+   7:   const CategoriesPage({super.key});
+   8:   @override
+   9:   State<CategoriesPage> createState() => _CategoriesPageState();
+  10: }
+  11: class _CategoriesPageState extends State<CategoriesPage> {
+  12:   final _repository = CategoriesRepository();
+  13:   final _searchController = TextEditingController();
+  14:   final _scrollController = ScrollController();
+  15:   late Future<List<CategoryModel>> _future;
+  16:   List<CategoryModel> _all = [];
+  17:   List<CategoryModel> _filtered = [];
+  18:   String? _activeLetter;
+  19:   List<String> _letters = [];
+  20:   final Map<String, GlobalKey> _sectionKeys = {};
+  21:   @override
+  22:   void initState() {
+  23:     super.initState();
+  24:     _future = _repository.fetchActiveCategories();
+  25:     _future.then((list) {
+  26:       _all = list;
+  27:       _applyFilter('');
+  28:     });
+  29:   }
+  30:   @override
+  31:   void dispose() {
+  32:     _searchController.dispose();
+  33:     _scrollController.dispose();
+  34:     super.dispose();
+  35:   }
+  36:   void _applyFilter(String query) {
+  37:     final q = query.trim().toLowerCase();
+  38:     final result = q.isEmpty
+  39:         ? List<CategoryModel>.of(_all)
+  40:         : _all.where((c) => c.name.toLowerCase().contains(q)).toList();
+  41:     _sectionKeys.clear();
+  42:     final lettersSet = <String>{};
+  43:     for (final c in result) {
+  44:       if (c.name.isEmpty) continue;
+  45:       lettersSet.add(c.name[0].toUpperCase());
+  46:     }
+  47:     final letters = lettersSet.toList()..sort();
+  48:     for (final l in letters) {
+  49:       _sectionKeys[l] = GlobalKey();
+  50:     }
+  51:     setState(() {
+  52:       _filtered = result;
+  53:       _letters = letters;
+  54:       _activeLetter = null;
+  55:     });
+  56:   }
+  57:   void _scrollToLetter(String letter) {
+  58:     final ctx = _sectionKeys[letter]?.currentContext;
+  59:     if (ctx == null) return;
+  60:     HapticFeedback.selectionClick();
+  61:     setState(() => _activeLetter = letter);
+  62:     Scrollable.ensureVisible(
+  63:       ctx,
+  64:       duration: const Duration(milliseconds: 300),
+  65:       curve: Curves.easeOut,
+  66:       alignment: 0.0,
+  67:     );
+  68:   }
+  69:   @override
+  70:   Widget build(BuildContext context) {
+  71:     final colorScheme = Theme.of(context).colorScheme;
+  72:     return Scaffold(
+  73:       appBar: AppBar(
+  74:         title: const Text('Categorias de serviços'),
+  75:         bottom: PreferredSize(
+  76:           preferredSize: const Size.fromHeight(56),
+  77:           child: Padding(
+  78:             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  79:             child: TextField(
+  80:               controller: _searchController,
+  81:               onChanged: _applyFilter,
+  82:               decoration: InputDecoration(
+  83:                 hintText: 'Buscar categoria…',
+  84:                 prefixIcon: const Icon(Icons.search),
+  85:                 suffixIcon: _searchController.text.isNotEmpty
+  86:                     ? IconButton(
+  87:                         icon: const Icon(Icons.clear),
+  88:                         onPressed: () {
+  89:                           _searchController.clear();
+  90:                           _applyFilter('');
+  91:                         },
+  92:                       )
+  93:                     : null,
+  94:                 isDense: true,
+  95:                 filled: true,
+  96:                 fillColor: colorScheme.surface,
+  97:                 border: OutlineInputBorder(
+  98:                   borderRadius: BorderRadius.circular(12),
+  99:                   borderSide: BorderSide.none,
+ 100:                 ),
+ 101:               ),
+ 102:             ),
+ 103:           ),
+ 104:         ),
+ 105:       ),
+ 106:       body: FutureBuilder<List<CategoryModel>>(
+ 107:         future: _future,
+ 108:         builder: (context, snapshot) {
+ 109:           if (snapshot.connectionState == ConnectionState.waiting) {
+ 110:             return const Center(child: CircularProgressIndicator());
+ 111:           }
+ 112:           if (snapshot.hasError) {
+ 113:             return Center(
+ 114:               child: Padding(
+ 115:                 padding: const EdgeInsets.all(20),
+ 116:                 child: Text(
+ 117:                   'Erro ao carregar categorias:\n\${snapshot.error}',
+ 118:                   textAlign: TextAlign.center,
+ 119:                 ),
+ 120:               ),
+ 121:             );
+ 122:           }
+ 123:           if (_filtered.isEmpty) {
+ 124:             return const Center(
+ 125:               child: Text('Nenhuma categoria encontrada.'),
+ 126:             );
+ 127:           }
+ 128:           // agrupa por letra
+ 129:           final Map<String, List<CategoryModel>> grouped = {};
+ 130:           for (final c in _filtered) {
+ 131:             if (c.name.isEmpty) continue;
+ 132:             grouped.putIfAbsent(c.name[0].toUpperCase(), () => []).add(c);
+ 133:           }
+ 134:           return Stack(
+ 135:             children: [
+ 136:               ListView.builder(
+ 137:                 controller: _scrollController,
+ 138:                 padding: const EdgeInsets.only(right: 32),
+ 139:                 itemCount: _letters.length,
+ 140:                 itemBuilder: (_, i) {
+ 141:                   final letter = _letters[i];
+ 142:                   final items = grouped[letter] ?? [];
+ 143:                   return Column(
+ 144:                     crossAxisAlignment: CrossAxisAlignment.start,
+ 145:                     children: [
+ 146:                       Container(
+ 147:                         key: _sectionKeys.putIfAbsent(letter, () => GlobalKey()),
+ 148:                         width: double.infinity,
+ 149:                         color: colorScheme.surfaceContainerHighest,
+ 150:                         padding: const EdgeInsets.symmetric(
+ 151:                           horizontal: 16,
+ 152:                           vertical: 6,
+ 153:                         ),
+ 154:                         child: Text(
+ 155:                           letter,
+ 156:                           style: TextStyle(
+ 157:                             fontWeight: FontWeight.bold,
+ 158:                             fontSize: 13,
+ 159:                             color: colorScheme.onSurfaceVariant,
+ 160:                           ),
+ 161:                         ),
+ 162:                       ),
+ 163:                       ...items.map(
+ 164:                         (category) => ListTile(
+ 165:                           title: Text(category.name),
+ 166:                           trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+ 167:                           onTap: () => Navigator.push(
+ 168:                             context,
+ 169:                             MaterialPageRoute(
+ 170:                               builder: (_) => ProvidersPage(
+ 171:                                 categoryId: category.id,
+ 172:                                 categoryName: category.name,
+ 173:                               ),
+ 174:                             ),
+ 175:                           ),
+ 176:                         ),
+ 177:                       ),
+ 178:                     ],
+ 179:                   );
+ 180:                 },
+ 181:               ),
+ 182:               if (_searchController.text.isEmpty)
+ 183:                 Positioned(
+ 184:                   right: 0,
+ 185:                   top: 0,
+ 186:                   bottom: 0,
+ 187:                   child: _AlphabetIndex(
+ 188:                     letters: _letters,
+ 189:                     activeLetter: _activeLetter,
+ 190:                     onLetterTap: _scrollToLetter,
+ 191:                     colorScheme: colorScheme,
+ 192:                   ),
+ 193:                 ),
+ 194:             ],
+ 195:           );
+ 196:         },
+ 197:       ),
+ 198:     );
+ 199:   }
+ 200: }
+ 201: class _AlphabetIndex extends StatelessWidget {
+ 202:   final List<String> letters;
+ 203:   final String? activeLetter;
+ 204:   final ValueChanged<String> onLetterTap;
+ 205:   final ColorScheme colorScheme;
+ 206:   const _AlphabetIndex({
+ 207:     required this.letters,
+ 208:     required this.activeLetter,
+ 209:     required this.onLetterTap,
+ 210:     required this.colorScheme,
+ 211:   });
+ 212:   @override
+ 213:   Widget build(BuildContext context) {
+ 214:     return GestureDetector(
+ 215:       onVerticalDragUpdate: (details) {
+ 216:         final box = context.findRenderObject() as RenderBox?;
+ 217:         if (box == null) return;
+ 218:         final localY = box.globalToLocal(details.globalPosition).dy;
+ 219:         final itemHeight = box.size.height / letters.length;
+ 220:         final idx = (localY / itemHeight).floor().clamp(0, letters.length - 1);
+ 221:         onLetterTap(letters[idx]);
+ 222:       },
+ 223:       child: Container(
+ 224:         width: 28,
+ 225:         decoration: BoxDecoration(
+ 226:           color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.9),
+ 227:           borderRadius: const BorderRadius.only(
+ 228:             topLeft: Radius.circular(8),
+ 229:             bottomLeft: Radius.circular(8),
+ 230:           ),
+ 231:         ),
+ 232:         child: Column(
+ 233:           mainAxisAlignment: MainAxisAlignment.center,
+ 234:           children: letters.map((l) {
+ 235:             final isActive = l == activeLetter;
+ 236:             return GestureDetector(
+ 237:               onTap: () => onLetterTap(l),
+ 238:               child: Container(
+ 239:                 width: 28,
+ 240:                 height: 22,
+ 241:                 alignment: Alignment.center,
+ 242:                 decoration: isActive
+ 243:                     ? BoxDecoration(
+ 244:                         color: colorScheme.primary,
+ 245:                         shape: BoxShape.circle,
+ 246:                       )
+ 247:                     : null,
+ 248:                 child: Text(
+ 249:                   l,
+ 250:                   style: TextStyle(
+ 251:                     fontSize: 11,
+ 252:                     fontWeight: FontWeight.bold,
+ 253:                     color: isActive
+ 254:                         ? colorScheme.onPrimary
+ 255:                         : colorScheme.onSurfaceVariant,
+ 256:                   ),
+ 257:                 ),
+ 258:               ),
+ 259:             );
+ 260:           }).toList(),
+ 261:         ),
+ 262:       ),
+ 263:     );
+ 264:   }
+ 265: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\home\home_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import 'package:firebase_auth/firebase_auth.dart';
+   3: import '../../data/models/user_model.dart';
+   4: import '../../data/repositories/auth_repository.dart';
+   5: import '../admin/admin_panel_page.dart';
+   6: import '../categories/categories_page.dart';
+   7: import '../providers/providers_page.dart';
+   8: import '../suggestions/suggest_provider_page.dart';
+   9: 
+  10: class HomePage extends StatefulWidget {
+  11:   const HomePage({super.key});
+  12:   @override
+  13:   State<HomePage> createState() => _HomePageState();
+  14: }
+  15: 
+  16: class _HomePageState extends State<HomePage> {
+  17:   final _searchController = TextEditingController();
+  18:   final _authRepository = AuthRepository();
+  19:   UserModel? _currentUser;
+  20:   @override
+  21:   void initState() {
+  22:     super.initState();
+  23:     _loadCurrentUser();
+  24:   }
+  25: 
+  26:   Future<void> _loadCurrentUser() async {
+  27:     final user = await _authRepository.getCurrentUserModel();
+  28:     if (mounted) {
+  29:       final fbUser = FirebaseAuth.instance.currentUser;
+  30:       setState(
+  31:         () => _currentUser =
+  32:             user ??
+  33:             (fbUser == null
+  34:                 ? null
+  35:                 : UserModel(
+  36:                     uid: fbUser.uid,
+  37:                     email: fbUser.email,
+  38:                     phone: fbUser.phoneNumber,
+  39:                     displayName:
+  40:                         fbUser.displayName ?? fbUser.phoneNumber ?? 'Usuário',
+  41:                     role: 'user',
+  42:                     createdAt: DateTime.now(),
+  43:                   )),
+  44:       );
+  45:     }
+  46:   }
+  47: 
+  48:   void _openSearchResult() {
+  49:     final query = _searchController.text.trim();
+  50:     Navigator.push(
+  51:       context,
+  52:       MaterialPageRoute(
+  53:         builder: (_) => ProvidersPage(
+  54:           categoryName: query.isEmpty ? 'Todos os prestadores' : 'Busca',
+  55:           searchQuery: query,
+  56:         ),
+  57:       ),
+  58:     );
+  59:   }
+  60: 
+  61:   Future<void> _signOut() async {
+  62:     final confirmed = await showDialog<bool>(
+  63:       context: context,
+  64:       builder: (ctx) => AlertDialog(
+  65:         title: const Text('Sair'),
+  66:         content: const Text('Deseja encerrar sua sessão?'),
+  67:         actions: [
+  68:           TextButton(
+  69:             onPressed: () => Navigator.pop(ctx, false),
+  70:             child: const Text('Cancelar'),
+  71:           ),
+  72:           FilledButton(
+  73:             onPressed: () => Navigator.pop(ctx, true),
+  74:             child: const Text('Sair'),
+  75:           ),
+  76:         ],
+  77:       ),
+  78:     );
+  79:     if (confirmed == true) {
+  80:       await _authRepository.signOut();
+  81:       // O StreamBuilder em app.dart redireciona para AuthPage automaticamente.
+  82:     }
+  83:   }
+  84: 
+  85:   @override
+  86:   void dispose() {
+  87:     _searchController.dispose();
+  88:     super.dispose();
+  89:   }
+  90: 
+  91:   @override
+  92:   Widget build(BuildContext context) {
+  93:     return Scaffold(
+  94:       appBar: AppBar(
+  95:         title: const Text('Busca Vida Serviços'),
+  96:         actions: [
+  97:           IconButton(
+  98:             icon: const Icon(Icons.logout),
+  99:             tooltip: 'Sair',
+ 100:             onPressed: _signOut,
+ 101:           ),
+ 102:         ],
+ 103:       ),
+ 104:       body: Padding(
+ 105:         padding: const EdgeInsets.all(20),
+ 106:         child: Column(
+ 107:           crossAxisAlignment: CrossAxisAlignment.stretch,
+ 108:           children: [
+ 109:             if (_currentUser != null) ...[
+ 110:               Text(
+ 111:                 'Olá, ${_currentUser!.displayName}!',
+ 112:                 style: const TextStyle(fontSize: 16),
+ 113:               ),
+ 114:               const SizedBox(height: 4),
+ 115:             ],
+ 116:             const Text(
+ 117:               'Encontre prestadores de serviço confiáveis',
+ 118:               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+ 119:             ),
+ 120:             const SizedBox(height: 20),
+ 121:             TextField(
+ 122:               controller: _searchController,
+ 123:               decoration: InputDecoration(
+ 124:                 hintText: 'Buscar por nome ou serviço',
+ 125:                 prefixIcon: const Icon(Icons.search),
+ 126:                 border: OutlineInputBorder(
+ 127:                   borderRadius: BorderRadius.circular(12),
+ 128:                 ),
+ 129:               ),
+ 130:               onSubmitted: (_) => _openSearchResult(),
+ 131:             ),
+ 132:             const SizedBox(height: 16),
+ 133:             FilledButton(
+ 134:               onPressed: _openSearchResult,
+ 135:               child: const Text('Buscar prestadores'),
+ 136:             ),
+ 137:             const SizedBox(height: 12),
+ 138:             OutlinedButton(
+ 139:               onPressed: () {
+ 140:                 Navigator.push(
+ 141:                   context,
+ 142:                   MaterialPageRoute(builder: (_) => const CategoriesPage()),
+ 143:                 );
+ 144:               },
+ 145:               child: const Text('Ver categorias de serviços'),
+ 146:             ),
+ 147:             const SizedBox(height: 12),
+ 148:             if (_currentUser != null) ...[
+ 149:               if (_currentUser!.isAdmin)
+ 150:                 OutlinedButton.icon(
+ 151:                   onPressed: () {
+ 152:                     Navigator.push(
+ 153:                       context,
+ 154:                       MaterialPageRoute(builder: (_) => const AdminPanelPage()),
+ 155:                     );
+ 156:                   },
+ 157:                   icon: const Icon(Icons.admin_panel_settings),
+ 158:                   label: const Text('Painel de administração'),
+ 159:                 )
+ 160:               else
+ 161:                 OutlinedButton.icon(
+ 162:                   onPressed: () {
+ 163:                     Navigator.push(
+ 164:                       context,
+ 165:                       MaterialPageRoute(
+ 166:                         builder: (_) =>
+ 167:                             SuggestProviderPage(currentUser: _currentUser!),
+ 168:                       ),
+ 169:                     );
+ 170:                   },
+ 171:                   icon: const Icon(Icons.add_business),
+ 172:                   label: const Text('Fazer uma sugestao'),
+ 173:                 ),
+ 174:             ],
+ 175:           ],
+ 176:         ),
+ 177:       ),
+ 178:     );
+ 179:   }
+ 180: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\providers\providers_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import '../../data/models/provider_model.dart';
+   3: import '../../data/repositories/providers_repository.dart';
+   4: import '../provider_detail/provider_detail_page.dart';
+   5: class ProvidersPage extends StatefulWidget {
+   6:   final String categoryName;
+   7:   final String? categoryId;
+   8:   final String? searchQuery;
+   9:   const ProvidersPage({
+  10:     super.key,
+  11:     required this.categoryName,
+  12:     this.categoryId,
+  13:     this.searchQuery,
+  14:   });
+  15:   @override
+  16:   State<ProvidersPage> createState() => _ProvidersPageState();
+  17: }
+  18: class _ProvidersPageState extends State<ProvidersPage> {
+  19:   final _repository = ProvidersRepository();
+  20:   late final Stream<List<ProviderModel>> _stream;
+  21:   @override
+  22:   void initState() {
+  23:     super.initState();
+  24:     _stream = _buildStream();
+  25:   }
+  26:   Stream<List<ProviderModel>> _buildStream() {
+  27:     final normalizedSearch = widget.searchQuery?.trim() ?? '';
+  28:     if (normalizedSearch.isNotEmpty) {
+  29:       return _repository.watchProvidersForSearch(
+  30:         searchQuery: normalizedSearch,
+  31:       );
+  32:     }
+  33:     final normalizedCategoryId = widget.categoryId?.trim() ?? '';
+  34:     if (normalizedCategoryId.isNotEmpty) {
+  35:       return _repository.watchProvidersByCategory(
+  36:         categoryId: normalizedCategoryId,
+  37:       );
+  38:     }
+  39:     return _repository.watchProvidersForSearch(searchQuery: '');
+  40:   }
+  41:   @override
+  42:   Widget build(BuildContext context) {
+  43:     return Scaffold(
+  44:       appBar: AppBar(
+  45:         title: Text(widget.categoryName),
+  46:       ),
+  47:       body: StreamBuilder<List<ProviderModel>>(
+  48:         stream: _stream,
+  49:         builder: (context, snapshot) {
+  50:           if (snapshot.connectionState == ConnectionState.waiting) {
+  51:             return const Center(
+  52:               child: CircularProgressIndicator(),
+  53:             );
+  54:           }
+  55:           if (snapshot.hasError) {
+  56:             return Center(
+  57:               child: Padding(
+  58:                 padding: const EdgeInsets.all(20),
+  59:                 child: Text(
+  60:                   'Erro ao carregar prestadores:\n${snapshot.error}',
+  61:                   textAlign: TextAlign.center,
+  62:                 ),
+  63:               ),
+  64:             );
+  65:           }
+  66:           final providers = snapshot.data ?? [];
+  67:           if (providers.isEmpty) {
+  68:             return const Center(
+  69:               child: Padding(
+  70:                 padding: EdgeInsets.all(20),
+  71:                 child: Text(
+  72:                   'Nenhum prestador encontrado.',
+  73:                   textAlign: TextAlign.center,
+  74:                 ),
+  75:               ),
+  76:             );
+  77:           }
+  78:           return ListView.separated(
+  79:             itemCount: providers.length,
+  80:             separatorBuilder: (_, _) => const Divider(height: 1),
+  81:             itemBuilder: (context, index) {
+  82:               final provider = providers[index];
+  83:               final hasDescription = provider.description.isNotEmpty;
+  84:               final ratingLine =
+  85:                   'Nota: ${provider.avgRating.toStringAsFixed(1)} '
+  86:                   '(${provider.ratingCount} avaliações)';
+  87:               return ListTile(
+  88:                 title: Text(provider.name),
+  89:                 subtitle: Text(
+  90:                   hasDescription
+  91:                       ? '${provider.description}\n$ratingLine'
+  92:                       : ratingLine,
+  93:                 ),
+  94:                 isThreeLine: hasDescription,
+  95:                 trailing: const Icon(Icons.arrow_forward_ios),
+  96:                 onTap: () {
+  97:                   Navigator.push(
+  98:                     context,
+  99:                     MaterialPageRoute(
+ 100:                       builder: (_) => ProviderDetailPage(
+ 101:                         provider: provider,
+ 102:                       ),
+ 103:                     ),
+ 104:                   );
+ 105:                 },
+ 106:               );
+ 107:             },
+ 108:           );
+ 109:         },
+ 110:       ),
+ 111:     );
+ 112:   }
+ 113: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\provider_detail\provider_detail_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import '../../core/utils/phone_formatter.dart';
+   3: import 'package:url_launcher/url_launcher.dart';
+   4: import '../../data/models/provider_model.dart';
+   5: import '../../data/models/review_model.dart';
+   6: import '../../data/models/user_model.dart';
+   7: import '../../data/repositories/auth_repository.dart';
+   8: import '../../data/repositories/reviews_repository.dart';
+   9: import '../reviews/review_form_page.dart';
+  10: import 'package:firebase_auth/firebase_auth.dart';
+  11: 
+  12: class ProviderDetailPage extends StatefulWidget {
+  13:   final ProviderModel provider;
+  14:   const ProviderDetailPage({super.key, required this.provider});
+  15:   @override
+  16:   State<ProviderDetailPage> createState() => _ProviderDetailPageState();
+  17: }
+  18: 
+  19: class _ProviderDetailPageState extends State<ProviderDetailPage> {
+  20:   final _reviewsRepository = ReviewsRepository();
+  21:   final _authRepository = AuthRepository();
+  22:   UserModel? _currentUser;
+  23:   @override
+  24:   void initState() {
+  25:     super.initState();
+  26:     _authRepository.getCurrentUserModel().then((user) {
+  27:       if (mounted) {
+  28:         final fbUser = FirebaseAuth.instance.currentUser;
+  29:         setState(
+  30:           () => _currentUser =
+  31:               user ??
+  32:               (fbUser == null
+  33:                   ? null
+  34:                   : UserModel(
+  35:                       uid: fbUser.uid,
+  36:                       email: fbUser.email,
+  37:                       phone: fbUser.phoneNumber,
+  38:                       displayName:
+  39:                           fbUser.displayName ?? fbUser.phoneNumber ?? 'Usuário',
+  40:                       role: 'user',
+  41:                       createdAt: DateTime.now(),
+  42:                     )),
+  43:         );
+  44:       }
+  45:     });
+  46:   }
+  47: 
+  48:   Future<void> _openWhatsApp() async {
+  49:     final number = widget.provider.whatsapp.replaceAll(RegExp(r'\D'), '');
+  50:     final uri = Uri.parse('https://wa.me/55$number');
+  51:     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+  52:       if (mounted) {
+  53:         ScaffoldMessenger.of(context).showSnackBar(
+  54:           const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
+  55:         );
+  56:       }
+  57:     }
+  58:   }
+  59: 
+  60:   Future<void> _makePhoneCall() async {
+  61:     final number = widget.provider.phone.replaceAll(RegExp(r'\D'), '');
+  62:     final uri = Uri.parse('tel:$number');
+  63:     if (!await launchUrl(uri)) {
+  64:       if (mounted) {
+  65:         ScaffoldMessenger.of(context).showSnackBar(
+  66:           const SnackBar(content: Text('Não foi possível iniciar a ligação.')),
+  67:         );
+  68:       }
+  69:     }
+  70:   }
+  71: 
+  72:   void _openReviewForm() {
+  73:     if (_currentUser == null) {
+  74:       ScaffoldMessenger.of(context).showSnackBar(
+  75:         const SnackBar(content: Text('Aguarde um momento e tente novamente.')),
+  76:       );
+  77:       return;
+  78:     }
+  79:     Navigator.push(
+  80:       context,
+  81:       MaterialPageRoute(
+  82:         builder: (_) => ReviewFormPage(
+  83:           providerId: widget.provider.id,
+  84:           providerName: widget.provider.name,
+  85:           currentUser: _currentUser!,
+  86:         ),
+  87:       ),
+  88:     );
+  89:   }
+  90: 
+  91:   @override
+  92:   Widget build(BuildContext context) {
+  93:     return Scaffold(
+  94:       appBar: AppBar(title: Text(widget.provider.name)),
+  95:       body: SingleChildScrollView(
+  96:         padding: const EdgeInsets.all(20),
+  97:         child: Column(
+  98:           crossAxisAlignment: CrossAxisAlignment.start,
+  99:           children: [
+ 100:             Text(
+ 101:               widget.provider.name,
+ 102:               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+ 103:             ),
+ 104:             if (widget.provider.categoryName.isNotEmpty) ...[
+ 105:               const SizedBox(height: 4),
+ 106:               Text(
+ 107:                 widget.provider.categoryName,
+ 108:                 style: TextStyle(
+ 109:                   fontSize: 14,
+ 110:                   color: Theme.of(context).colorScheme.primary,
+ 111:                 ),
+ 112:               ),
+ 113:             ],
+ 114:             const SizedBox(height: 12),
+ 115:             if (widget.provider.description.isNotEmpty) ...[
+ 116:               Text(
+ 117:                 widget.provider.description,
+ 118:                 style: const TextStyle(fontSize: 16),
+ 119:               ),
+ 120:               const SizedBox(height: 16),
+ 121:             ],
+ 122:             if (widget.provider.phone.isNotEmpty) ...[
+ 123:               Text(
+ 124:                 'Telefone: ${formatPhone(widget.provider.phone)}',
+ 125:                 style: const TextStyle(fontSize: 16),
+ 126:               ),
+ 127:               const SizedBox(height: 6),
+ 128:             ],
+ 129:             if (widget.provider.whatsapp.isNotEmpty) ...[
+ 130:               Text(
+ 131:                 'WhatsApp: ${formatPhone(widget.provider.whatsapp)}',
+ 132:                 style: const TextStyle(fontSize: 16),
+ 133:               ),
+ 134:               const SizedBox(height: 6),
+ 135:             ],
+ 136:             Row(
+ 137:               children: [
+ 138:                 const Icon(Icons.star, color: Colors.amber, size: 20),
+ 139:                 const SizedBox(width: 4),
+ 140:                 Text(
+ 141:                   '${widget.provider.avgRating.toStringAsFixed(1)}  '
+ 142:                   '(${widget.provider.ratingCount} avaliações)',
+ 143:                   style: const TextStyle(fontSize: 16),
+ 144:                 ),
+ 145:               ],
+ 146:             ),
+ 147:             const SizedBox(height: 24),
+ 148:             if (widget.provider.whatsapp.isNotEmpty) ...[
+ 149:               SizedBox(
+ 150:                 width: double.infinity,
+ 151:                 child: FilledButton.icon(
+ 152:                   onPressed: _openWhatsApp,
+ 153:                   icon: const Icon(Icons.chat),
+ 154:                   label: const Text('Falar no WhatsApp'),
+ 155:                 ),
+ 156:               ),
+ 157:               const SizedBox(height: 10),
+ 158:             ],
+ 159:             if (widget.provider.phone.isNotEmpty) ...[
+ 160:               SizedBox(
+ 161:                 width: double.infinity,
+ 162:                 child: OutlinedButton.icon(
+ 163:                   onPressed: _makePhoneCall,
+ 164:                   icon: const Icon(Icons.phone),
+ 165:                   label: const Text('Ligar agora'),
+ 166:                 ),
+ 167:               ),
+ 168:               const SizedBox(height: 10),
+ 169:             ],
+ 170:             SizedBox(
+ 171:               width: double.infinity,
+ 172:               child: OutlinedButton.icon(
+ 173:                 onPressed: _currentUser == null ? null : _openReviewForm,
+ 174:                 icon: const Icon(Icons.rate_review),
+ 175:                 label: const Text('Avaliar prestador'),
+ 176:               ),
+ 177:             ),
+ 178:             const SizedBox(height: 28),
+ 179:             const Text(
+ 180:               'Avaliações',
+ 181:               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+ 182:             ),
+ 183:             const SizedBox(height: 12),
+ 184:             StreamBuilder<List<ReviewModel>>(
+ 185:               stream: _reviewsRepository.watchReviewsByProvider(
+ 186:                 widget.provider.id,
+ 187:               ),
+ 188:               builder: (context, snapshot) {
+ 189:                 if (snapshot.connectionState == ConnectionState.waiting) {
+ 190:                   return const Center(child: CircularProgressIndicator());
+ 191:                 }
+ 192:                 final reviews = snapshot.data ?? [];
+ 193:                 if (reviews.isEmpty) {
+ 194:                   return const Text(
+ 195:                     'Nenhuma avaliação ainda. Seja o primeiro!',
+ 196:                     style: TextStyle(color: Colors.grey),
+ 197:                   );
+ 198:                 }
+ 199:                 return ListView.separated(
+ 200:                   shrinkWrap: true,
+ 201:                   physics: const NeverScrollableScrollPhysics(),
+ 202:                   itemCount: reviews.length,
+ 203:                   separatorBuilder: (_, _) => const Divider(height: 24),
+ 204:                   itemBuilder: (context, index) {
+ 205:                     final review = reviews[index];
+ 206:                     return _ReviewTile(review: review);
+ 207:                   },
+ 208:                 );
+ 209:               },
+ 210:             ),
+ 211:           ],
+ 212:         ),
+ 213:       ),
+ 214:     );
+ 215:   }
+ 216: }
+ 217: 
+ 218: class _ReviewTile extends StatelessWidget {
+ 219:   final ReviewModel review;
+ 220:   const _ReviewTile({required this.review});
+ 221:   @override
+ 222:   Widget build(BuildContext context) {
+ 223:     return Column(
+ 224:       crossAxisAlignment: CrossAxisAlignment.start,
+ 225:       children: [
+ 226:         Row(
+ 227:           children: [
+ 228:             Container(
+ 229:               width: 36,
+ 230:               height: 36,
+ 231:               alignment: Alignment.center,
+ 232:               decoration: BoxDecoration(
+ 233:                 color: _ratingColor(review.rating),
+ 234:                 shape: BoxShape.circle,
+ 235:               ),
+ 236:               child: Text(
+ 237:                 '${review.rating}',
+ 238:                 style: const TextStyle(
+ 239:                   color: Colors.white,
+ 240:                   fontWeight: FontWeight.bold,
+ 241:                   fontSize: 14,
+ 242:                 ),
+ 243:               ),
+ 244:             ),
+ 245:             const SizedBox(width: 10),
+ 246:             Text(
+ 247:               review.reviewerName,
+ 248:               style: const TextStyle(fontWeight: FontWeight.w600),
+ 249:             ),
+ 250:           ],
+ 251:         ),
+ 252:         if (review.comment.isNotEmpty) ...[
+ 253:           const SizedBox(height: 4),
+ 254:           Text(review.comment),
+ 255:         ],
+ 256:         const SizedBox(height: 2),
+ 257:         Text(
+ 258:           _formatDate(review.createdAt),
+ 259:           style: const TextStyle(fontSize: 12, color: Colors.grey),
+ 260:         ),
+ 261:       ],
+ 262:     );
+ 263:   }
+ 264: 
+ 265:   Color _ratingColor(int rating) {
+ 266:     if (rating <= 4) return Colors.red;
+ 267:     if (rating <= 6) return Colors.orange;
+ 268:     if (rating <= 8) return Colors.amber.shade700;
+ 269:     return Colors.green;
+ 270:   }
+ 271: 
+ 272:   String _formatDate(DateTime date) {
+ 273:     return '${date.day.toString().padLeft(2, '0')}/'
+ 274:         '${date.month.toString().padLeft(2, '0')}/'
+ 275:         '${date.year}';
+ 276:   }
+ 277: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\reviews\review_form_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import '../../data/models/review_model.dart';
+   3: import '../../data/models/user_model.dart';
+   4: import '../../data/repositories/reviews_repository.dart';
+   5: class ReviewFormPage extends StatefulWidget {
+   6:   final String providerId;
+   7:   final String providerName;
+   8:   final UserModel currentUser;
+   9:   const ReviewFormPage({
+  10:     super.key,
+  11:     required this.providerId,
+  12:     required this.providerName,
+  13:     required this.currentUser,
+  14:   });
+  15:   @override
+  16:   State<ReviewFormPage> createState() => _ReviewFormPageState();
+  17: }
+  18: class _ReviewFormPageState extends State<ReviewFormPage> {
+  19:   final _commentController = TextEditingController();
+  20:   final _reviewsRepository = ReviewsRepository();
+  21:   int _rating = 5;
+  22:   bool _isLoading = false;
+  23:   String? _errorMessage;
+  24:   @override
+  25:   void dispose() {
+  26:     _commentController.dispose();
+  27:     super.dispose();
+  28:   }
+  29:   Future<void> _submit() async {
+  30:     setState(() {
+  31:       _isLoading = true;
+  32:       _errorMessage = null;
+  33:     });
+  34:     try {
+  35:       final review = ReviewModel(
+  36:         id: '',
+  37:         providerId: widget.providerId,
+  38:         reviewerUid: widget.currentUser.uid,
+  39:         reviewerName: widget.currentUser.displayName,
+  40:         rating: _rating,
+  41:         comment: _commentController.text.trim(),
+  42:         createdAt: DateTime.now(),
+  43:       );
+  44:       await _reviewsRepository.addReview(review: review);
+  45:       if (mounted) {
+  46:         ScaffoldMessenger.of(context).showSnackBar(
+  47:           const SnackBar(content: Text('Avaliacao enviada. Obrigado!')),
+  48:         );
+  49:         Navigator.pop(context);
+  50:       }
+  51:     } catch (e) {
+  52:       if (mounted) {
+  53:         setState(() => _errorMessage = 'Erro ao enviar. Tente novamente.');
+  54:       }
+  55:     } finally {
+  56:       if (mounted) setState(() => _isLoading = false);
+  57:     }
+  58:   }
+  59:   String _ratingLabel(int rating) {
+  60:     if (rating <= 2) return 'Pessimo';
+  61:     if (rating <= 4) return 'Ruim';
+  62:     if (rating <= 6) return 'Regular';
+  63:     if (rating <= 8) return 'Bom';
+  64:     if (rating == 9) return 'Muito bom';
+  65:     return 'Excelente';
+  66:   }
+  67:   Color _ratingColor(int rating) {
+  68:     if (rating <= 4) return Colors.red;
+  69:     if (rating <= 6) return Colors.orange;
+  70:     if (rating <= 8) return Colors.amber.shade700;
+  71:     return Colors.green;
+  72:   }
+  73:   @override
+  74:   Widget build(BuildContext context) {
+  75:     return Scaffold(
+  76:       appBar: AppBar(title: const Text('Avaliar prestador')),
+  77:       body: SingleChildScrollView(
+  78:         padding: const EdgeInsets.all(20),
+  79:         child: Column(
+  80:           crossAxisAlignment: CrossAxisAlignment.stretch,
+  81:           children: [
+  82:             Text(
+  83:               widget.providerName,
+  84:               style: const TextStyle(
+  85:                 fontSize: 20,
+  86:                 fontWeight: FontWeight.bold,
+  87:               ),
+  88:             ),
+  89:             const SizedBox(height: 28),
+  90:             const Text(
+  91:               'Sua nota',
+  92:               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+  93:             ),
+  94:             const SizedBox(height: 16),
+  95:             Row(
+  96:               mainAxisAlignment: MainAxisAlignment.center,
+  97:               children: [
+  98:                 IconButton(
+  99:                   onPressed: _rating > 1
+ 100:                       ? () => setState(() => _rating--)
+ 101:                       : null,
+ 102:                   icon: const Icon(Icons.remove_circle_outline, size: 36),
+ 103:                   color: Theme.of(context).colorScheme.primary,
+ 104:                 ),
+ 105:                 const SizedBox(width: 12),
+ 106:                 Container(
+ 107:                   width: 72,
+ 108:                   height: 72,
+ 109:                   alignment: Alignment.center,
+ 110:                   decoration: BoxDecoration(
+ 111:                     color: _ratingColor(_rating),
+ 112:                     shape: BoxShape.circle,
+ 113:                   ),
+ 114:                   child: Text(
+ 115:                     '$_rating',
+ 116:                     style: const TextStyle(
+ 117:                       fontSize: 32,
+ 118:                       fontWeight: FontWeight.bold,
+ 119:                       color: Colors.white,
+ 120:                     ),
+ 121:                   ),
+ 122:                 ),
+ 123:                 const SizedBox(width: 12),
+ 124:                 IconButton(
+ 125:                   onPressed: _rating < 10
+ 126:                       ? () => setState(() => _rating++)
+ 127:                       : null,
+ 128:                   icon: const Icon(Icons.add_circle_outline, size: 36),
+ 129:                   color: Theme.of(context).colorScheme.primary,
+ 130:                 ),
+ 131:               ],
+ 132:             ),
+ 133:             const SizedBox(height: 8),
+ 134:             Center(
+ 135:               child: Text(
+ 136:                 _ratingLabel(_rating),
+ 137:                 style: TextStyle(
+ 138:                   fontSize: 16,
+ 139:                   fontWeight: FontWeight.w500,
+ 140:                   color: _ratingColor(_rating),
+ 141:                 ),
+ 142:               ),
+ 143:             ),
+ 144:             const SizedBox(height: 4),
+ 145:             const Center(
+ 146:               child: Text(
+ 147:                 'escala de 1 a 10',
+ 148:                 style: TextStyle(fontSize: 12, color: Colors.grey),
+ 149:               ),
+ 150:             ),
+ 151:             const SizedBox(height: 24),
+ 152:             TextField(
+ 153:               controller: _commentController,
+ 154:               decoration: const InputDecoration(
+ 155:                 labelText: 'Comentario (opcional)',
+ 156:                 border: OutlineInputBorder(),
+ 157:                 alignLabelWithHint: true,
+ 158:               ),
+ 159:               maxLines: 4,
+ 160:               textCapitalization: TextCapitalization.sentences,
+ 161:             ),
+ 162:             if (_errorMessage != null) ...[
+ 163:               const SizedBox(height: 12),
+ 164:               Text(
+ 165:                 _errorMessage!,
+ 166:                 style: TextStyle(
+ 167:                     color: Theme.of(context).colorScheme.error),
+ 168:               ),
+ 169:             ],
+ 170:             const SizedBox(height: 24),
+ 171:             FilledButton(
+ 172:               onPressed: _isLoading ? null : _submit,
+ 173:               child: _isLoading
+ 174:                   ? const SizedBox(
+ 175:                       height: 20,
+ 176:                       width: 20,
+ 177:                       child: CircularProgressIndicator(strokeWidth: 2),
+ 178:                     )
+ 179:                   : const Text('Enviar avaliacao'),
+ 180:             ),
+ 181:           ],
+ 182:         ),
+ 183:       ),
+ 184:     );
+ 185:   }
+ 186: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\lib\features\suggestions\suggest_provider_page.dart
+==================================================
+   1: import 'package:flutter/material.dart';
+   2: import '../../core/utils/phone_formatter.dart';
+   3: import '../../data/models/category_model.dart';
+   4: import '../../data/models/provider_model.dart';
+   5: import '../../data/models/user_model.dart';
+   6: import '../../data/repositories/categories_repository.dart';
+   7: import '../../data/repositories/providers_repository.dart';
+   8: class SuggestProviderPage extends StatefulWidget {
+   9:   final UserModel currentUser;
+  10:   const SuggestProviderPage({super.key, required this.currentUser});
+  11:   @override
+  12:   State<SuggestProviderPage> createState() => _SuggestProviderPageState();
+  13: }
+  14: class _SuggestProviderPageState extends State<SuggestProviderPage> {
+  15:   // modo: true = sugerir prestador | false = sugerir categoria
+  16:   bool _isProviderMode = true;
+  17:   // prestador
+  18:   final _nameController = TextEditingController();
+  19:   final _phoneController = TextEditingController();
+  20:   final _whatsappController = TextEditingController();
+  21:   final _descriptionController = TextEditingController();
+  22:   CategoryModel? _selectedCategory;
+  23:   List<CategoryModel> _categories = [];
+  24:   bool _loadingCategories = true;
+  25:   String? _categoriesError;
+  26:   // categoria
+  27:   final _categoryNameController = TextEditingController();
+  28:   final _providersRepository = ProvidersRepository();
+  29:   final _categoriesRepository = CategoriesRepository();
+  30:   bool _isLoading = false;
+  31:   String? _errorMessage;
+  32:   @override
+  33:   void initState() {
+  34:     super.initState();
+  35:     _loadCategories();
+  36:   }
+  37:   @override
+  38:   void dispose() {
+  39:     _nameController.dispose();
+  40:     _phoneController.dispose();
+  41:     _whatsappController.dispose();
+  42:     _descriptionController.dispose();
+  43:     _categoryNameController.dispose();
+  44:     super.dispose();
+  45:   }
+  46:   Future<void> _loadCategories() async {
+  47:     try {
+  48:       final cats = await _categoriesRepository.fetchActiveCategories();
+  49:       if (mounted) {
+  50:         setState(() {
+  51:           _categories = cats;
+  52:           _loadingCategories = false;
+  53:         });
+  54:       }
+  55:     } catch (e) {
+  56:       if (mounted) {
+  57:         setState(() {
+  58:           _categoriesError =
+  59:               'Nao foi possivel carregar as categorias. Tente novamente.';
+  60:           _loadingCategories = false;
+  61:         });
+  62:       }
+  63:     }
+  64:   }
+  65:   Future<void> _submitProvider() async {
+  66:     final name = _nameController.text.trim();
+  67:     if (name.isEmpty) {
+  68:       setState(() => _errorMessage = 'Informe o nome do prestador.');
+  69:       return;
+  70:     }
+  71:     if (_selectedCategory == null) {
+  72:       setState(() => _errorMessage = 'Selecione uma categoria.');
+  73:       return;
+  74:     }
+  75:     if (_phoneController.text.trim().isEmpty &&
+  76:         _whatsappController.text.trim().isEmpty) {
+  77:       setState(
+  78:         () => _errorMessage =
+  79:             'Informe ao menos um contato (telefone ou WhatsApp).',
+  80:       );
+  81:       return;
+  82:     }
+  83:     setState(() {
+  84:       _isLoading = true;
+  85:       _errorMessage = null;
+  86:     });
+  87:     try {
+  88:       final provider = ProviderModel(
+  89:         id: '',
+  90:         name: name,
+  91:         categoryId: _selectedCategory!.id,
+  92:         categoryName: _selectedCategory!.name,
+  93:         phone: _phoneController.text.trim(),
+  94:         whatsapp: _whatsappController.text.trim(),
+  95:         description: _descriptionController.text.trim(),
+  96:         avgRating: 0,
+  97:         ratingCount: 0,
+  98:         isActive: false,
+  99:         status: 'pending',
+ 100:         suggestedBy: widget.currentUser.uid,
+ 101:       );
+ 102:       await _providersRepository.suggestProvider(provider: provider);
+ 103:       if (mounted) _showSuccessDialog('Sugestao de prestador enviada!');
+ 104:     } catch (e) {
+ 105:       if (mounted) {
+ 106:         setState(() => _errorMessage = 'Erro ao enviar. Tente novamente.');
+ 107:       }
+ 108:     } finally {
+ 109:       if (mounted) setState(() => _isLoading = false);
+ 110:     }
+ 111:   }
+ 112:   Future<void> _submitCategory() async {
+ 113:     final name = _categoryNameController.text.trim();
+ 114:     if (name.isEmpty) {
+ 115:       setState(() => _errorMessage = 'Informe o nome da categoria.');
+ 116:       return;
+ 117:     }
+ 118:     setState(() {
+ 119:       _isLoading = true;
+ 120:       _errorMessage = null;
+ 121:     });
+ 122:     try {
+ 123:       await _categoriesRepository.suggestCategory(
+ 124:         name: name,
+ 125:         suggestedByUid: widget.currentUser.uid,
+ 126:       );
+ 127:       if (mounted) _showSuccessDialog('Sugestao de categoria enviada!');
+ 128:     } catch (e) {
+ 129:       if (mounted) {
+ 130:         setState(() => _errorMessage = 'Erro ao enviar. Tente novamente.');
+ 131:       }
+ 132:     } finally {
+ 133:       if (mounted) setState(() => _isLoading = false);
+ 134:     }
+ 135:   }
+ 136:   void _showSuccessDialog(String titulo) {
+ 137:     showDialog(
+ 138:       context: context,
+ 139:       builder: (ctx) => AlertDialog(
+ 140:         title: Text(titulo),
+ 141:         content: const Text(
+ 142:           'Obrigado! Sua sugestao foi recebida e sera analisada pelo nosso time.',
+ 143:         ),
+ 144:         actions: [
+ 145:           FilledButton(
+ 146:             onPressed: () {
+ 147:               Navigator.pop(ctx);
+ 148:               Navigator.pop(context);
+ 149:             },
+ 150:             child: const Text('OK'),
+ 151:           ),
+ 152:         ],
+ 153:       ),
+ 154:     );
+ 155:   }
+ 156:   @override
+ 157:   Widget build(BuildContext context) {
+ 158:     return Scaffold(
+ 159:       appBar: AppBar(title: const Text('Fazer uma sugestao')),
+ 160:       body: SingleChildScrollView(
+ 161:         padding: const EdgeInsets.all(20),
+ 162:         child: Column(
+ 163:           crossAxisAlignment: CrossAxisAlignment.stretch,
+ 164:           children: [
+ 165:             SegmentedButton<bool>(
+ 166:               segments: const [
+ 167:                 ButtonSegment(
+ 168:                   value: true,
+ 169:                   label: Text('Sugerir prestador'),
+ 170:                   icon: Icon(Icons.person_add_outlined),
+ 171:                 ),
+ 172:                 ButtonSegment(
+ 173:                   value: false,
+ 174:                   label: Text('Sugerir categoria'),
+ 175:                   icon: Icon(Icons.category_outlined),
+ 176:                 ),
+ 177:               ],
+ 178:               selected: {_isProviderMode},
+ 179:               onSelectionChanged: (val) => setState(() {
+ 180:                 _isProviderMode = val.first;
+ 181:                 _errorMessage = null;
+ 182:               }),
+ 183:             ),
+ 184:             const SizedBox(height: 24),
+ 185:             if (_isProviderMode) ...[
+ 186:               const Text(
+ 187:                 'Conhece um bom prestador de servico? Indique aqui!',
+ 188:                 style: TextStyle(fontSize: 16),
+ 189:               ),
+ 190:               const Text(
+ 191:                 'Sua sugestao sera revisada e, se aprovada, aparecera no app.',
+ 192:                 style: TextStyle(fontSize: 14, color: Colors.grey),
+ 193:               ),
+ 194:               const SizedBox(height: 20),
+ 195:               TextField(
+ 196:                 controller: _nameController,
+ 197:                 decoration: const InputDecoration(
+ 198:                   labelText: 'Nome do prestador *',
+ 199:                   border: OutlineInputBorder(),
+ 200:                 ),
+ 201:                 textCapitalization: TextCapitalization.words,
+ 202:               ),
+ 203:               const SizedBox(height: 16),
+ 204:               if (_loadingCategories)
+ 205:                 const Center(child: CircularProgressIndicator())
+ 206:               else if (_categoriesError != null)
+ 207:                 Column(
+ 208:                   crossAxisAlignment: CrossAxisAlignment.stretch,
+ 209:                   children: [
+ 210:                     Text(
+ 211:                       _categoriesError!,
+ 212:                       style: TextStyle(
+ 213:                           color: Theme.of(context).colorScheme.error),
+ 214:                     ),
+ 215:                     const SizedBox(height: 8),
+ 216:                     OutlinedButton(
+ 217:                       onPressed: () {
+ 218:                         setState(() {
+ 219:                           _loadingCategories = true;
+ 220:                           _categoriesError = null;
+ 221:                         });
+ 222:                         _loadCategories();
+ 223:                       },
+ 224:                       child: const Text('Tentar novamente'),
+ 225:                     ),
+ 226:                   ],
+ 227:                 )
+ 228:               else
+ 229:                 InputDecorator(
+ 230:                   decoration: const InputDecoration(
+ 231:                     labelText: 'Categoria *',
+ 232:                     border: OutlineInputBorder(),
+ 233:                   ),
+ 234:                   child: DropdownButton<CategoryModel>(
+ 235:                     value: _selectedCategory,
+ 236:                     isExpanded: true,
+ 237:                     underline: const SizedBox.shrink(),
+ 238:                     hint: const Text('Selecione'),
+ 239:                     items: _categories
+ 240:                         .map((cat) => DropdownMenuItem(
+ 241:                               value: cat,
+ 242:                               child: Text(cat.name),
+ 243:                             ))
+ 244:                         .toList(),
+ 245:                     onChanged: (cat) =>
+ 246:                         setState(() => _selectedCategory = cat),
+ 247:                   ),
+ 248:                 ),
+ 249:               const SizedBox(height: 16),
+ 250:               TextField(
+ 251:                 controller: _phoneController,
+ 252:                 decoration: const InputDecoration(
+ 253:                   labelText: 'Telefone',
+ 254:                   border: OutlineInputBorder(),
+ 255:                 ),
+ 256:                 keyboardType: TextInputType.phone,
+ 257:               ),
+ 258:               const SizedBox(height: 16),
+ 259:               TextField(
+ 260:                 controller: _whatsappController,
+ 261:                 decoration: const InputDecoration(
+ 262:                   labelText: 'WhatsApp (somente numeros com DDD)',
+ 263:                   border: OutlineInputBorder(),
+ 264:                 ),
+ 265:                 keyboardType: TextInputType.phone,
+ 266:               ),
+ 267:               const SizedBox(height: 16),
+ 268:               TextField(
+ 269:                 controller: _descriptionController,
+ 270:                 decoration: const InputDecoration(
+ 271:                   labelText: 'O que esse prestador faz?',
+ 272:                   border: OutlineInputBorder(),
+ 273:                   alignLabelWithHint: true,
+ 274:                 ),
+ 275:                 maxLines: 4,
+ 276:                 textCapitalization: TextCapitalization.sentences,
+ 277:               ),
+ 278:             ] else ...[
+ 279:               const Text(
+ 280:                 'Nao encontrou a categoria que procura?',
+ 281:                 style: TextStyle(fontSize: 16),
+ 282:               ),
+ 283:               const Text(
+ 284:                 'Sugira uma nova categoria para ser avaliada pelo nosso time.',
+ 285:                 style: TextStyle(fontSize: 14, color: Colors.grey),
+ 286:               ),
+ 287:               const SizedBox(height: 20),
+ 288:               TextField(
+ 289:                 controller: _categoryNameController,
+ 290:                 decoration: const InputDecoration(
+ 291:                   labelText: 'Nome da categoria *',
+ 292:                   border: OutlineInputBorder(),
+ 293:                 ),
+ 294:                 textCapitalization: TextCapitalization.words,
+ 295:               ),
+ 296:             ],
+ 297:             if (_errorMessage != null) ...[
+ 298:               const SizedBox(height: 12),
+ 299:               Text(
+ 300:                 _errorMessage!,
+ 301:                 style:
+ 302:                     TextStyle(color: Theme.of(context).colorScheme.error),
+ 303:               ),
+ 304:             ],
+ 305:             const SizedBox(height: 24),
+ 306:             FilledButton(
+ 307:               onPressed: _isLoading
+ 308:                   ? null
+ 309:                   : (_isProviderMode ? _submitProvider : _submitCategory),
+ 310:               child: _isLoading
+ 311:                   ? const SizedBox(
+ 312:                       height: 20,
+ 313:                       width: 20,
+ 314:                       child: CircularProgressIndicator(strokeWidth: 2),
+ 315:                     )
+ 316:                   : const Text('Enviar sugestao'),
+ 317:             ),
+ 318:           ],
+ 319:         ),
+ 320:       ),
+ 321:     );
+ 322:   }
+ 323: }
+
+
+==================================================
+ARQUIVO: C:\Users\Alex Salles\Apps - desenvolvimento\PrestServBuscaVida\scripts\package.json
+==================================================
+   1: {
+   2:   "name": "scripts",
+   3:   "version": "1.0.0",
+   4:   "description": "",
+   5:   "main": "import_planilha_firestore.js",
+   6:   "scripts": {
+   7:     "test": "echo \"Error: no test specified\" && exit 1"
+   8:   },
+   9:   "keywords": [],
+  10:   "author": "",
+  11:   "license": "ISC",
+  12:   "type": "commonjs",
+  13:   "dependencies": {
+  14:     "firebase-admin": "^13.7.0",
+  15:     "xlsx": "^0.18.5"
+  16:   }
+  17: }
+
+
+==================================================
+Total de arquivos exportados: 46
+==================================================
