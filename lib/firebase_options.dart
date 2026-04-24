@@ -3,16 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
+
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -32,7 +23,10 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -43,6 +37,7 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions are not supported for this platform.',
         );
     }
+  }
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA0WYLBvpKFK8WJ2Rt4lhHiT_mErMTRj0c',
@@ -52,16 +47,13 @@ class DefaultFirebaseOptions {
     storageBucket: 'prestservbuscavida.firebasestorage.app',
   );
 
-  }
-
-  );
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAWRduhBuvJD0qjUCdd1w57ec8PSjC13gE',
-    appId: '1:980349637154:web:0e759d1f24afac9804307b',
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBTkLQ-1eo0OhaWOUV5jxpe0lbGHPd2aEQ',
+    appId: '1:980349637154:ios:256dcb800e44da4b04307b',
     messagingSenderId: '980349637154',
     projectId: 'prestservbuscavida',
-    authDomain: 'prestservbuscavida.firebaseapp.com',
     storageBucket: 'prestservbuscavida.firebasestorage.app',
-    measurementId: 'G-VQN36MNQ9T',
+    iosClientId: '980349637154-pmo2tob50gvo5msaa4m5qj3q63jghsfc.apps.googleusercontent.com',
+    iosBundleId: 'com.buscavida.prestservbuscavida',
   );
 }
