@@ -20,11 +20,16 @@ class AuthRepository {
       email: email,
       password: password,
     );
-    final userModel = await _getUserDocument(credential.user!.uid);
-    if (userModel == null) {
-      throw Exception('Usuário não encontrado. Crie uma conta primeiro.');
-    }
-    return userModel;
+    final user = credential.user!;
+    final existing = await _getUserDocument(user.uid);
+    if (existing != null) return existing;
+    // Documento ausente (cadastro incompleto anterior) — cria automaticamente.
+    final role = await _claimAdminIfFirst(user.uid);
+    return _createUserDocument(
+      user,
+      role: role,
+      displayName: user.displayName ?? email.split('@').first,
+    );
   }
 
   Future<UserModel> registerWithEmail({
@@ -106,6 +111,25 @@ class AuthRepository {
     await _auth.signOut();
   }
 
+  Future<void> updateProfile({
+    required String uid,
+    required String displayName,
+    String? email,
+    String? phone,
+    String? gleba,
+  }) async {
+    await _firestore.collection('users').doc(uid).update({
+      'displayName': displayName,
+      if (email != null) 'email': email,
+      'phone': phone,
+      'gleba': gleba,
+    });
+    final fbUser = _auth.currentUser;
+    if (fbUser != null) {
+      await fbUser.updateDisplayName(displayName);
+    }
+  }
+
   Future<UserModel?> getCurrentUserModel() async {
     final user = _auth.currentUser;
     if (user == null) return null;
@@ -116,19 +140,28 @@ class AuthRepository {
   /// Usa um contador atômico em 'meta/stats' para garantir que somente o
   /// primeiro usuário a se cadastrar receba role 'admin', sem race condition.
   Future<String> _claimAdminIfFirst(String uid) async {
-    final statsRef = _firestore.collection('meta').doc('stats');
-    String role = 'user';
-    await _firestore.runTransaction((transaction) async {
-      final snap = await transaction.get(statsRef);
-      final count = snap.exists ? (snap.data()!['userCount'] ?? 0) as int : 0;
-      if (count == 0) {
-        role = 'admin';
-      }
-      transaction.set(statsRef, {
-        'userCount': count + 1,
-      }, SetOptions(merge: true));
-    });
-    return role;
+    try {
+      final statsRef = _firestore.collection('meta').doc('stats');
+      String role = 'user';
+      await _firestore.runTransaction((transaction) async {
+        final snap = await transaction.get(statsRef);
+        final count =
+            snap.exists ? (snap.data()!['userCount'] ?? 0) as int : 0;
+        if (count == 0) {
+          role = 'admin';
+        }
+        transaction.set(
+          statsRef,
+          {'userCount': count + 1},
+          SetOptions(merge: true),
+        );
+      });
+      return role;
+    } catch (_) {
+      // Se a transação falhar (ex: regras do Firestore), continua com role 'user'
+      // para garantir que o documento do usuário seja criado mesmo assim.
+      return 'user';
+    }
   }
 
   Future<UserModel> _createUserDocument(
@@ -173,6 +206,27 @@ class AuthRepository {
       accessToken: appleCredential.authorizationCode,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+    final result = await _auth.signInWithCredential(oauthCredential);
+    final user = result.user!;
+
+    // Apple only sends name on the very first sign-in; persist it if present.
+    final givenName = appleCredential.givenName;
+    final familyName = appleCredential.familyName;
+    final appleDisplayName = (givenName != null || familyName != null)
+        ? '${givenName ?? ''} ${familyName ?? ''}'.trim()
+        : null;
+
+    if (appleDisplayName != null && appleDisplayName.isNotEmpty) {
+      await user.updateDisplayName(appleDisplayName);
+    }
+
+    final existing = await _getUserDocument(user.uid);
+    if (existing != null) return;
+
+    final role = await _claimAdminIfFirst(user.uid);
+    final displayName = appleDisplayName?.isNotEmpty == true
+        ? appleDisplayName!
+        : user.displayName ?? user.email ?? 'Usuário Apple';
+    await _createUserDocument(user, role: role, displayName: displayName);
   }
 }

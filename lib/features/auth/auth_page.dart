@@ -125,13 +125,16 @@ class _EmailTabState extends State<_EmailTab> {
       return 'E-mail ou senha incorretos.';
     }
     if (raw.contains('email-already-in-use')) {
-      return 'Este e-mail já está cadastrado.';
+      return 'Este e-mail já está cadastrado. Tente entrar com sua senha.';
     }
     if (raw.contains('invalid-email')) {
       return 'E-mail inválido.';
     }
     if (raw.contains('network-request-failed')) {
       return 'Sem conexão com a internet.';
+    }
+    if (raw.contains('permission-denied')) {
+      return 'Erro de permissão no servidor. Contate o suporte.';
     }
     return 'Ocorreu um erro. Tente novamente.';
   }
@@ -208,7 +211,20 @@ class _EmailTabState extends State<_EmailTab> {
 
           SignInWithAppleButton(
             onPressed: () async {
-              await widget.authRepository.signInWithApple();
+              try {
+                await widget.authRepository.signInWithApple();
+              } on SignInWithAppleAuthorizationException catch (e) {
+                if (e.code == AuthorizationErrorCode.canceled) return;
+                if (mounted) {
+                  setState(() => _errorMessage =
+                      'Não foi possível entrar com Apple. Tente novamente.');
+                }
+              } catch (_) {
+                if (mounted) {
+                  setState(() => _errorMessage =
+                      'Não foi possível entrar com Apple. Tente novamente.');
+                }
+              }
             },
           ),
 
