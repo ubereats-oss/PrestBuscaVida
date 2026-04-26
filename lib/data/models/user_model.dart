@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String uid;
   final String? email;
@@ -6,6 +7,8 @@ class UserModel {
   final String displayName;
   final String role;
   final DateTime createdAt;
+  final String? gleba;
+
   const UserModel({
     required this.uid,
     this.email,
@@ -13,8 +16,11 @@ class UserModel {
     required this.displayName,
     required this.role,
     required this.createdAt,
+    this.gleba,
   });
+
   bool get isAdmin => role == 'admin';
+
   factory UserModel.fromMap(
     Map<String, dynamic> map, {
     required String uid,
@@ -26,8 +32,10 @@ class UserModel {
       displayName: (map['displayName'] ?? '').toString(),
       role: (map['role'] ?? 'user').toString(),
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      gleba: map['gleba'] as String?,
     );
   }
+
   Map<String, dynamic> toMap() {
     return {
       'email': email,
@@ -35,6 +43,7 @@ class UserModel {
       'displayName': displayName,
       'role': role,
       'createdAt': Timestamp.fromDate(createdAt),
+      'gleba': gleba,
     };
   }
 }
